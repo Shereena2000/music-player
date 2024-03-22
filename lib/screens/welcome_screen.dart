@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:mikki_music/screens/home_screen.dart';
+import 'package:mikki_music/songs/song_data_controller.dart';
 
 
 class WelcomeScreen extends StatefulWidget {
@@ -10,6 +12,7 @@ class WelcomeScreen extends StatefulWidget {
 }
 
 class _WelcomeScreenState extends State<WelcomeScreen> {
+ SongDataController songDataController=Get.put(SongDataController());
   @override
   void initState() {
     gotoHome();
@@ -99,9 +102,11 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     );
   }
   Future<void> gotoHome() async {
+    songDataController.getLocalSongs(); // Fetch songs first
+ 
   await Future.delayed(Duration(seconds: 3));
 
-  Navigator.push(context,MaterialPageRoute(builder: (context) => HomeScreen()),
+  Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => HomeScreen()),
   );
 }
 }

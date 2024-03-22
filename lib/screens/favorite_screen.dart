@@ -31,6 +31,7 @@ class FavoriteScreen extends StatelessWidget {
                   height: 10,
                 ),
                 Text(
+                  maxLines: 1,
                   "My Soundtrack",
                   style: TextStyle(
                     color: Colors.white70,

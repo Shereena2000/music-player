@@ -27,7 +27,7 @@ class SongScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const backButton(),
+                //const backButton(),
                 const Center(
                   child: Text(
                     "My Music",

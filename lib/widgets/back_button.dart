@@ -15,14 +15,18 @@ class backButton extends StatelessWidget {
       style: ElevatedButton.styleFrom(
         padding: EdgeInsets.zero,
         shape: const CircleBorder(),
+         
       ),
       child: CircleAvatar(
         backgroundColor: itembgcolor,
         radius: 20,
-        child: const Icon(
-          Icons.arrow_back_ios,
-          size: 15,
-          color: Colors.white,
+        child: Padding(
+          padding: const EdgeInsets.only(left: 5),
+          child: const Icon(
+            Icons.arrow_back_ios,
+            size: 15,
+            color: Colors.white,
+          ),
         ),
       ),
     );

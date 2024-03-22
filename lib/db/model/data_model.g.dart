@@ -19,17 +19,20 @@ class AudioModelAdapter extends TypeAdapter<AudioModel> {
     return AudioModel(
       title: fields[0] as String,
       artist: fields[1] as String,
+      songid: fields[2] as int,
     );
   }
 
   @override
   void write(BinaryWriter writer, AudioModel obj) {
     writer
-      ..writeByte(2)
+      ..writeByte(3)
       ..writeByte(0)
       ..write(obj.title)
       ..writeByte(1)
-      ..write(obj.artist);
+      ..write(obj.artist)
+      ..writeByte(2)
+      ..write(obj.songid);
   }
 
   @override

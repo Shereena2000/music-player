@@ -9,11 +9,12 @@ class AudioModel {
   @HiveField(1)
   late String artist;
 
-  // @HiveField(2)
-  // late String filePath;
+   @HiveField(2)
+   late int songid;
   AudioModel({
     required this.title,
     required this.artist,
-    // required this.filePath
+     required this.songid,
+    
   });
 }
