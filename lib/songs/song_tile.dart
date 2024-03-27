@@ -1,46 +1,45 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class SongTile extends StatelessWidget {
   final String songName;
   final VoidCallback onPress;
-  const SongTile({super.key,required this.songName,required this.onPress});
+   // final VoidCallback addToRecentlyPlayed; 
+  const SongTile({super.key, required this.songName,
+  required this.onPress,
+ //  required this.addToRecentlyPlayed,
+   });
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 10.0),
+      padding: const EdgeInsets.only(bottom: 20.0),
       child: InkWell(
         onTap: onPress,
-        child: Container(
-          padding: EdgeInsets.all(20),
-          child: Row(
-            children: [
-              Icon(
-                Icons.music_note,
-                color: Colors.white,
+        child: ListTile(
+          leading: Container(
+            clipBehavior: Clip.antiAlias,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10.0),
+              image: const DecorationImage(
+                image: AssetImage('assets/images/music.jpg'),
+                fit: BoxFit.cover,
               ),
-              SizedBox(
-                width: 10,
-              ),
-              Flexible(
-                child: Text(
-                  '$songName',
-                  maxLines: 1, 
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 20,
-                  ),
-                ),
-              ),
-              
-              // Icon(
-              //   Icons.more_vert,
-              //   color: Colors.white,
-              // )
-            ],
-          ), 
+            ),
+            width: 50.0,
+            height: 50.0,
+          ),
+          title: Text(
+            songName,
+            maxLines: 1,
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 20,
+            ),
+          ),
+          trailing: Icon(
+            Icons.more_vert,
+            color: Colors.white,
+          ),
         ),
       ),
     );

@@ -1,9 +1,9 @@
-import 'package:flutter/material.dart';
-import 'package:mikki_music/db/model/data_model.dart';
+import 'package:mikki_music/songs/song_player_controller.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:get/get.dart';
 
 class SongDataController extends GetxController {
+  SongPlayerController songPlayerController =Get.put(SongPlayerController());
   final AudioQuery = OnAudioQuery();
 
   RxList<SongModel> songList = <SongModel>[].obs;
@@ -27,10 +27,25 @@ class SongDataController extends GetxController {
       index++;
     });
     
-    print(songId);
-    print(currentSongPlayingIndex);
+   // print(songId);
+    //print(currentSongPlayingIndex);
   }
   void playNextSong(){
-    SongModel playNextSong =songList[currentSongPlayingIndex.value++];
+    int songListLen =songList.length;
+    currentSongPlayingIndex.value =currentSongPlayingIndex.value+1;
+    if (currentSongPlayingIndex.value<songListLen) {
+      SongModel nextSong =songList[currentSongPlayingIndex.value];
+      songPlayerController.playLocalAudio(nextSong);
+    }
+    
+  }
+  void playPreviousSong (){
+     int songListLen =songList.length;
+    currentSongPlayingIndex.value =currentSongPlayingIndex.value-1;
+    if (currentSongPlayingIndex.value < songListLen) {
+      SongModel nextSong =songList[currentSongPlayingIndex.value];
+      songPlayerController.playLocalAudio(nextSong);
+    }
+ 
   }
 }

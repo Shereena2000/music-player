@@ -1,16 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
 import 'package:mikki_music/songs/song_controller_button.dart';
+import 'package:mikki_music/songs/song_player_controller.dart';
 import 'package:mikki_music/widgets/back_button.dart';
 
 class PlaySongScreen extends StatelessWidget {
-  final String songTitile;
-  final String artistName;
-  const PlaySongScreen({super.key, required this.songTitile, required this.artistName});
+ 
+  const PlaySongScreen({super.key, });
 
   @override
   Widget build(BuildContext context) {
+    SongPlayerController songPlayerController =Get.put(SongPlayerController());
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false, 
@@ -37,14 +39,14 @@ class PlaySongScreen extends StatelessWidget {
                   ),
             
                const   Spacer(),
-                  Text(
-                    '$artistName',
+                 Obx(() =>  Text(
+                    '${songPlayerController.songArtist.value}',
                        style: TextStyle(
                     color: Colors.white,
                     fontSize: 14,
                     fontStyle: FontStyle.italic
                   ),
-                  ),
+                  ),),
                   SizedBox(
                     height: 12,
                   ),
@@ -52,15 +54,15 @@ class PlaySongScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Flexible(
-                        child: Text(
-                          '$songTitile',
+                        child:Obx(() =>  Text(
+                          '${songPlayerController.songTitle.value}', 
                           maxLines: 1,
                            style: TextStyle(
                     color: Colors.white,
                     fontSize: 16,
                      fontStyle: FontStyle.italic
                   ),
-                        ),
+                        ),)
                       ),
                       Icon(
                         Icons.favorite_border,
