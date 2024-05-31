@@ -2,23 +2,20 @@ import 'package:hive_flutter/hive_flutter.dart';
 part 'data_model.g.dart';
 
 @HiveType(typeId: 0)
-class AudioModel {
-  @HiveField(0)
-  late String title;
+class Music extends HiveObject {
+
+  @HiveField(0,defaultValue: 0)
+  final int id;
 
   @HiveField(1)
-  late String artist;
+  late String title;
 
   @HiveField(2)
-  late int songid;
+  late String? album;
 
   @HiveField(3)
-  late String uri;
+  late String path;
 
-  AudioModel({
-    required this.title,
-    required this.artist,
-    required this.songid,
-    required this.uri,
-  });
+  Music({required this.id, required this.path, required this.title, this.album,});
+
 }

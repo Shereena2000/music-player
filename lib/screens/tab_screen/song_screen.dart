@@ -1,14 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:get/get.dart';
-import 'package:mikki_music/db/functions/function.dart';
-import 'package:mikki_music/db/model/data_model.dart';
-import 'package:mikki_music/screens/play_song_screen.dart';
-import 'package:mikki_music/screens/songs_screen/playlist_screen.dart';
-import 'package:mikki_music/songs/song_data_controller.dart';
-import 'package:mikki_music/songs/song_player_controller.dart';
-import 'package:mikki_music/songs/song_tile.dart';
+import 'package:mikki_music/screens/tab_screen/playlist_screen.dart';
+import 'package:mikki_music/songs/all_songs.dart';
 import 'package:mikki_music/widgets/all_color.dart';
 import 'package:mikki_music/widgets/nav_bar.dart';
 import 'package:mikki_music/widgets/play_shuffle_switch.dart';
@@ -45,7 +37,7 @@ class SongScreen extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(
-                      height: 10), // Add spacing between title and tabs
+                      height: 10),
                   Expanded(
                     // Make tabs and content fill available space
                     child: Column(
@@ -69,7 +61,7 @@ class SongScreen extends StatelessWidget {
                               )
                               .toList(),
                         ),
-                        // TabBarView to switch content
+                        // TabBarView to switch content (play list)
                         Expanded(
                           child: TabBarView(
                             children: [
@@ -96,8 +88,7 @@ class SongsTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SongDataController songDataController = Get.put(SongDataController());
-    SongPlayerController songPlayerController = Get.put(SongPlayerController());
+  
     return Column(
       children: [
         SizedBox(
@@ -107,35 +98,39 @@ class SongsTab extends StatelessWidget {
         SizedBox(
           height: 10,
         ),
-        Obx(
-          () => Expanded(
-            child: SingleChildScrollView(
-              child: Column(
-                  children: songDataController.songList
-                      .map((e) => SongTile(
-                            onPress: () async {
-                              songPlayerController.playLocalAudio(e);
-                              songDataController
-                                  .findCurrentSongPlayingIndex(e.id);
-                              Get.to(PlaySongScreen());
-                              AudioModel audioModel = AudioModel(
-                                title: e.title,
-                                artist: e.artist??'unknwn',
-                                songid: e
-                                    .id, 
-                                uri: e.uri!,
-                              );
+      Expanded(
+        child: SingleChildScrollView(child: Column(
+          children: [
+            AllSongs(),
+          ],
+        )),
+      )
+        // * Obx(
+        //   () => Expanded(
+        //     child: SingleChildScrollView(
+        //       child: Column(
+        //           children: songDataController.songList
+        //               .map((e) => SongTile(
+        //                     onPress: () async {
+        //                       songPlayerController.playLocalAudio(e);
+        //                       songDataController
+        //                           .findCurrentSongPlayingIndex(e.id);
+        //                       Get.to(PlaySongScreen());
+        //                       AudioModel audioModel = AudioModel(
+        //                         title: e.title,
+        //                         artist: e.artist ?? 'unknwn',
+        //                         songid: e.id,
+        //                         uri: e.uri!,
+        //                       );
 
-                              await addToRecntlyplayed([
-                                audioModel
-                              ]); 
-                            },
-                            songName: e.title,
-                          ))
-                      .toList()),
-            ),
-          ),
-        )
+        //                     // *  await addToRecntlyplayed([audioModel]);
+        //                     },
+        //                     songName: e.title,
+        //                   ))
+        //               .toList()),
+        //     ),
+        //   ),
+        // )
       ],
     );
   }

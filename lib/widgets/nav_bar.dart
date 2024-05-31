@@ -2,7 +2,7 @@ import "package:flutter/material.dart";
 import "package:mikki_music/screens/favorite_screen.dart";
 import "package:mikki_music/screens/home_screen.dart";
 import "package:mikki_music/screens/search_screen.dart";
-import "package:mikki_music/screens/songs_screen/song_screen.dart";
+import "package:mikki_music/screens/tab_screen/song_screen.dart";
 import "package:mikki_music/widgets/all_color.dart";
 
 class CustomNavBar extends StatelessWidget {

@@ -1,20 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:mikki_music/db/model/data_model.dart';
+import 'package:mikki_music/screens/play_song_screen.dart';
 
 class SongTile extends StatelessWidget {
-  final String songName;
-  final VoidCallback onPress;
-   // final VoidCallback addToRecentlyPlayed; 
-  const SongTile({super.key, required this.songName,
-  required this.onPress,
- //  required this.addToRecentlyPlayed,
-   });
+ final String songName;
+ final Music musicObj;
+ final int index;
+  // * final VoidCallback onPress;
+  // final VoidCallback addToRecentlyPlayed;
+  const SongTile({
+    super.key,
+   required this.songName,
+   required this.musicObj, required this.index
+    // required this.onPress,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 20.0),
       child: InkWell(
-        onTap: onPress,
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => PlaySongScreen(musicObj: musicObj,index: index,),
+            ),
+          );
+        },
+        //*onPress,
         child: ListTile(
           leading: Container(
             clipBehavior: Clip.antiAlias,
@@ -29,7 +43,8 @@ class SongTile extends StatelessWidget {
             height: 50.0,
           ),
           title: Text(
-            songName,
+            
+             songName,
             maxLines: 1,
             style: TextStyle(
               color: Colors.white,

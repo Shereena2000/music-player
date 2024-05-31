@@ -1,51 +1,51 @@
 import 'package:mikki_music/songs/song_player_controller.dart';
 import 'package:on_audio_query/on_audio_query.dart';
-import 'package:get/get.dart';
 
-class SongDataController extends GetxController {
-  SongPlayerController songPlayerController =Get.put(SongPlayerController());
-  final AudioQuery = OnAudioQuery();
 
-  RxList<SongModel> songList = <SongModel>[].obs;
-  RxInt currentSongPlayingIndex = 0.obs;
+// * class SongDataController extends GetxController {
+  // SongPlayerController songPlayerController =Get.put(SongPlayerController());
+  // final AudioQuery = OnAudioQuery();
 
-  void getLocalSongs() async {
-    songList.value = await AudioQuery.querySongs(
-        ignoreCase: true,
-        orderType: OrderType.ASC_OR_SMALLER,
-        sortType: null,
-        uriType: UriType.EXTERNAL);
-    // print(songList.value);
-  }
+  // RxList<SongModel> songList = <SongModel>[].obs;
+  // RxInt currentSongPlayingIndex = 0.obs;
 
-  void findCurrentSongPlayingIndex(int songId) {
-    var index = 0;
-    songList.forEach((e) {
-      if (e.id == songId) {
-        currentSongPlayingIndex.value = index;
-      }
-      index++;
-    });
+  //  void getLocalSongs() async {
+  //   songList.value = await AudioQuery.querySongs(
+  //       ignoreCase: true,
+  //       orderType: OrderType.ASC_OR_SMALLER,
+  //       sortType: null,
+  //       uriType: UriType.EXTERNAL);
     
-   // print(songId);
-    //print(currentSongPlayingIndex);
-  }
-  void playNextSong(){
-    int songListLen =songList.length;
-    currentSongPlayingIndex.value =currentSongPlayingIndex.value+1;
-    if (currentSongPlayingIndex.value<songListLen) {
-      SongModel nextSong =songList[currentSongPlayingIndex.value];
-      songPlayerController.playLocalAudio(nextSong);
-    }
+  // }
+
+  // void findCurrentSongPlayingIndex(int songId) {
+  //   var index = 0;
+  //   songList.forEach((e) {
+  //     if (e.id == songId) {
+  //       currentSongPlayingIndex.value = index;
+  //     }
+  //     index++;
+  //   });
     
-  }
-  void playPreviousSong (){
-     int songListLen =songList.length;
-    currentSongPlayingIndex.value =currentSongPlayingIndex.value-1;
-    if (currentSongPlayingIndex.value < songListLen) {
-      SongModel nextSong =songList[currentSongPlayingIndex.value];
-      songPlayerController.playLocalAudio(nextSong);
-    }
+  //  print(songId);
+  //   print(currentSongPlayingIndex);
+  // }
+  // void playNextSong(){
+  //   int songListLen =songList.length;
+  //   currentSongPlayingIndex.value =currentSongPlayingIndex.value+1;
+  //   if (currentSongPlayingIndex.value<songListLen) {
+  //     SongModel nextSong =songList[currentSongPlayingIndex.value];
+  //     songPlayerController.playLocalAudio(nextSong);
+  //   }
+    
+  // }
+  // void playPreviousSong (){
+  //    int songListLen =songList.length;
+  //   currentSongPlayingIndex.value =currentSongPlayingIndex.value-1;
+  //   if (currentSongPlayingIndex.value < songListLen) {
+  //     SongModel nextSong =songList[currentSongPlayingIndex.value];
+  //     songPlayerController.playLocalAudio(nextSong);
+  //   }
  
-  }
-}
+  // }
+// }

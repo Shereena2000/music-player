@@ -1,24 +1,43 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:get/get.dart';
+import 'package:mikki_music/db/functions/recent_song_func.dart';
+import 'package:mikki_music/db/model/data_model.dart';
 import 'package:mikki_music/songs/song_controller_button.dart';
-import 'package:mikki_music/songs/song_player_controller.dart';
 import 'package:mikki_music/widgets/back_button.dart';
 
-class PlaySongScreen extends StatelessWidget {
- 
-  const PlaySongScreen({super.key, });
+class PlaySongScreen extends StatefulWidget {
+  final Music musicObj;
+  final int index;
+  const PlaySongScreen({
+    super.key, required this.musicObj, required this.index,
+  });
+
+  @override
+  State<PlaySongScreen> createState() => _PlaySongScreenState();
+}
+
+class _PlaySongScreenState extends State<PlaySongScreen> {
+  late Music musicObjChange;
+@override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    musicObjChange =widget.musicObj;
+
+    //add to recent playlist
+    RecentlyFunctions.addToRecentlyPlayed(musicObjChange);
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
-    SongPlayerController songPlayerController =Get.put(SongPlayerController());
+    
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false, 
+        automaticallyImplyLeading: false,
         backgroundColor: Colors.transparent,
         elevation: 0,
-        title:  backButton(),
+        title: backButton(),
       ),
       extendBodyBehindAppBar: true,
       body: Stack(
@@ -37,43 +56,25 @@ class PlaySongScreen extends StatelessWidget {
                   SizedBox(
                     height: 15,
                   ),
-            
-               const   Spacer(),
-                 Obx(() =>  Text(
-                    '${songPlayerController.songArtist.value}',
-                       style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 14,
-                    fontStyle: FontStyle.italic
-                  ),
-                  ),),
+                  const Spacer(),
+                  Text('songArtist : unknown',style: TextStyle(color: Colors.white,fontSize: 14,  fontStyle: FontStyle.italic)),
+                 
                   SizedBox(
                     height: 12,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Flexible(
-                        child:Obx(() =>  Text(
-                          '${songPlayerController.songTitle.value}', 
-                          maxLines: 1,
-                           style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
-                     fontStyle: FontStyle.italic
-                  ),
-                        ),)
-                      ),
+                       Flexible(child: Text(widget.musicObj.title,style: TextStyle(color: Colors.white,fontSize: 14,  fontStyle: FontStyle.italic))),
+                     
                       Icon(
                         Icons.favorite_border,
                         color: Colors.white,
                       ),
-
                     ],
                   ),
-                
-                 SongControllerButton() 
-                ], 
+                 SongControllerButton(songFilePath: widget.musicObj.path,)
+                ],
               ),
             ),
           )

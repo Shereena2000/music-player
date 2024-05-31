@@ -1,59 +1,88 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:mikki_music/songs/song_data_controller.dart';
-import 'package:mikki_music/songs/song_player_controller.dart';
+import 'package:just_audio/just_audio.dart';
 import 'package:mikki_music/widgets/all_color.dart';
 
-class SongControllerButton extends StatelessWidget {
-  const SongControllerButton({super.key});
+class SongControllerButton extends StatefulWidget {
+  final String songFilePath;
+  const SongControllerButton({super.key, required this.songFilePath});
+
+  @override
+  State<SongControllerButton> createState() => _SongControllerButtonState();
+}
+
+class _SongControllerButtonState extends State<SongControllerButton> {
+  final player = AudioPlayer();
+ 
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    loadSong();
+
+   
+  }
+
+//play music
+  void loadSong() async {
+    await player.setFilePath(widget.songFilePath);
+    player.play();
+     setState(() {});
+  }
+
+ @override
+  void dispose() {
+    player.dispose(); // Release resources when the widget is removed
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    SongPlayerController songPlayerController = Get.put(SongPlayerController());
-    SongDataController songDataController = Get.put(SongDataController());
-
     return Column(
       children: [
         Column(
           children: [
-           const SizedBox(
+            const SizedBox(
               height: 12,
             ),
-          Obx(() =>   Slider(
-              value: songPlayerController.sliderValue.value.clamp(0.0,songPlayerController.sliderMaxValue.value),
-              onChanged: (value) {
-                songPlayerController.sliderValue.value = value;
-             
-                songPlayerController.changeSongSlider(Duration(seconds: value.toInt()));
-             WidgetsBinding.instance.addPostFrameCallback((_) => songPlayerController.sliderValue.value = value);
-              },
+            // * Obx(() =>
+            Slider(
+              value: 0,
+              //  songPlayerController.sliderValue.value.clamp(0.0,songPlayerController.sliderMaxValue.value),
+              onChanged: (Value) {},
+              //    (value) {
+              //     songPlayerController.sliderValue.value = value;
+
+              //     songPlayerController.changeSongSlider(Duration(seconds: value.toInt()));
+              //  WidgetsBinding.instance.addPostFrameCallback((_) => songPlayerController.sliderValue.value = value);
+              //   },
               min: 0,
-              max: songPlayerController.sliderMaxValue.value,
-           
-              
+              max: 5,
+              // * songPlayerController.sliderMaxValue.value,
+
               inactiveColor: Colors.white,
-             
-            ),)
+            ),
+            // )
           ],
         ),
-        Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 18.0),
-            child: Obx(
-              () => Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    '${songPlayerController.currentTime}',
-                    style: TextStyle(
-                      color: Colors.white,
-                    ),
-                  ),
-                  Text('${songPlayerController.totalTime}',
-                      style: TextStyle(color: Colors.white))
-                ],
+        const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 18.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                '5:0',
+                // * '${songPlayerController.currentTime}',
+                style: TextStyle(
+                  color: Colors.white,
+                ),
               ),
-            )),
+              Text("2.0",
+                  // *   '${songPlayerController.totalTime}',
+                  style: TextStyle(color: Colors.white))
+            ],
+          ),
+        ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
@@ -61,50 +90,42 @@ class SongControllerButton extends StatelessWidget {
               width: 10,
             ),
             InkWell(
-              onTap: (){songDataController.playPreviousSong();},
+              onTap: () {
+                // * songDataController.playPreviousSong();
+              },
               child: Icon(
                 Icons.fast_rewind,
                 color: Colors.white,
                 size: 35,
               ),
             ),
-            Obx(
-              () => songPlayerController.isPlaying.value
-                  ? InkWell(
-                      onTap: () {
-                        songPlayerController.pausePlaying();
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(20.0),
-                        ),
-                        child: Icon(
-                          Icons.play_arrow,
-                          color: itembgcolor,
-                          size: 35,
-                        ),
+         
+          InkWell(
+            onTap: () {
+              if (player.playing) {
+                player.pause();
+              } else {
+                player.play();
+              }
+              setState(() {});
+            },
+                child:     Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(20.0),
                       ),
-                    )
-                  : InkWell(
-                      onTap: () {
-                        songPlayerController.resumePlaying();
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(20.0),
-                        ),
-                        child: Icon(
-                          Icons.pause,
-                          color: itembgcolor,
-                          size: 35,
-                        ),
+                      child: Icon( player.playing ?
+                        Icons.pause :  Icons.play_arrow,
+                        color: itembgcolor,
+                        size: 35,
                       ),
                     ),
-            ),
+                   ),
+              
             InkWell(
-              onTap: (){songDataController.playNextSong();},
+              onTap: () {
+                // * songDataController.playNextSong();
+              },
               child: Icon(
                 Icons.fast_forward,
                 color: Colors.white,

@@ -1,23 +1,42 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:mikki_music/db/functions/add_song_to_hive.dart';
+import 'package:mikki_music/db/functions/change_song_model.dart';
+import 'package:mikki_music/db/model/data_model.dart';
 import 'package:mikki_music/screens/home_screen.dart';
-import 'package:mikki_music/songs/song_data_controller.dart';
+import 'package:on_audio_query/on_audio_query.dart';
 
 
-class WelcomeScreen extends StatefulWidget {
-  const WelcomeScreen({Key? key});
+
+class SplashScreen extends StatefulWidget {
+  const SplashScreen({Key? key});
 
   @override
-  State<WelcomeScreen> createState() => _WelcomeScreenState();
+  State<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _WelcomeScreenState extends State<WelcomeScreen> {
- SongDataController songDataController=Get.put(SongDataController());
+class _SplashScreenState extends State<SplashScreen> {
+  bool _hasPermission = false;    
+  final OnAudioQuery _audioQuery = OnAudioQuery(); 
+ //SongDataController songDataController=Get.put(SongDataController());
   @override
   void initState() {
-    gotoHome();
+   
     // TODO: implement initState
     super.initState();
+    checkAndRequestPermissions();
+    gotoHome();
+  }
+  Future<void>checkAndRequestPermissions({bool retry = false}) async{
+    _hasPermission =await await _audioQuery.checkAndRequest(
+      retryRequest: retry
+    ); 
+    if (_hasPermission) {
+      List<SongModel>songModel = await _audioQuery.querySongs();
+      await AddSongsToHive.addSongToHive(changeSongModel(songModel));
+    
+    }
+    _hasPermission ? setState(() {}):null;
   }
   Widget build(BuildContext context) {
     return Container(
@@ -62,25 +81,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 const SizedBox(
                   height: 20,
                 ),
-                // ElevatedButton(
-                //   onPressed: () {
-                //     Navigator.push(
-                //       context,
-                //       MaterialPageRoute(builder: (context) => HomeScreen()),
-                //     );
-                //   },
-                //   style: ElevatedButton.styleFrom(
-                //     padding: const EdgeInsets.symmetric(
-                //         vertical: 20.0, horizontal: 40),
-                //     shape: RoundedRectangleBorder(
-                //         borderRadius: BorderRadius.circular(30)),
-                //     backgroundColor: Color.fromARGB(210, 44, 2, 51),
-                //   ),
-                //   child: const Text(
-                //     'Get Started',
-                //     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
-                //   ),
-                // ),
+               
                 Expanded(
                   child: Align(
                     alignment: Alignment.bottomCenter,
@@ -102,7 +103,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     );
   }
   Future<void> gotoHome() async {
-    songDataController.getLocalSongs(); // Fetch songs first
+    //fetch songs
+    // * songDataController.getLocalSongs(); 
  
   await Future.delayed(Duration(seconds: 3));
 

@@ -1,17 +1,16 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:mikki_music/db/functions/function.dart';
+import 'package:flutter/widgets.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:mikki_music/db/model/data_model.dart';
 import 'package:mikki_music/screens/favorite_screen.dart';
-import 'package:mikki_music/screens/play_song_screen.dart';
 import 'package:mikki_music/screens/recently_played_screen.dart';
-import 'package:mikki_music/screens/songs_screen/song_screen.dart';
-import 'package:mikki_music/songs/song_player_controller.dart';
+import 'package:mikki_music/screens/tab_screen/song_screen.dart';
+import 'package:mikki_music/songs/all_songs.dart';
 import 'package:mikki_music/songs/song_tile.dart';
 import 'package:mikki_music/widgets/add_playlist.dart';
 import 'package:mikki_music/widgets/all_color.dart';
 import 'package:mikki_music/widgets/nav_bar.dart';
-import 'package:permission_handler/permission_handler.dart';
-import 'package:mikki_music/songs/song_data_controller.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({
@@ -23,21 +22,18 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  SongDataController songDataController1 = Get.put(SongDataController());
-  SongPlayerController songPlayerController = Get.put(SongPlayerController());
+  //late Box<Music> _songsBox;
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    requestPermission();
-  }
-
-  void requestPermission() {
-    Permission.storage.request();
+   // _songsBox = Hive.box<Music>('musicbox');
   }
 
   @override
   Widget build(BuildContext context) {
+ //   final songs = _songsBox.values.toList() as List<Music>;
     return BackgroundColor(
       child: Scaffold(
         backgroundColor: Colors.transparent,
@@ -52,6 +48,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   const SizedBox(
                     height: 30,
                   ),
+                  //-----------favourite-------------//
                   GestureDetector(
                     onTap: () => Navigator.push(
                         context,
@@ -86,7 +83,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                   ),
-                 Padding(
+                  //---------recently played----------//
+                  Padding(
                     padding: EdgeInsets.only(top: 20, left: 8, right: 8),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -99,23 +97,24 @@ class _HomeScreenState extends State<HomeScreen> {
                               fontSize: 21),
                         ),
                         IconButton(
-                            onPressed: () {
-                              getRecentlyPlayed();
-                              Navigator.push( 
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                       RecentlyPlayedScreen()),
-                              );
-                            },
-                            icon: Icon(
-                              Icons.arrow_forward_ios,
-                              color: Colors.white,
-                              size: 20,
-                            ),),
+                          onPressed: () {
+                            // *   getRecentlyPlayed();
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => RecentlyPlayedScreen()),
+                            );
+                          },
+                          icon: Icon(
+                            Icons.arrow_forward_ios,
+                            color: Colors.white,
+                            size: 20,
+                          ),
+                        ),
                       ],
                     ),
                   ),
+                  //-------------my playlist------------//
                   Padding(
                     padding: EdgeInsets.all(8.0),
                     child: Row(
@@ -129,23 +128,25 @@ class _HomeScreenState extends State<HomeScreen> {
                               fontSize: 21),
                         ),
                         IconButton(
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        SongScreen(initialTabIndex: 1)),
-                              );
-                            },
-                            icon: Icon(
-                              Icons.arrow_forward_ios,
-                              color: Colors.white,
-                              size: 20,
-                            )),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      SongScreen(initialTabIndex: 1)),
+                            );
+                          },
+                          icon: Icon(
+                            Icons.arrow_forward_ios,
+                            color: Colors.white,
+                            size: 20,
+                          ),
+                        ),
                       ],
                     ),
                   ),
                   AddPlaylist(),
+                  //-----------all songs-------//
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
                     child: Row(
@@ -159,15 +160,15 @@ class _HomeScreenState extends State<HomeScreen> {
                               fontSize: 21),
                         ),
                         IconButton(
-                          onPressed: () {Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        SongScreen(initialTabIndex: 0)),
-                              );
-                            
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      SongScreen(initialTabIndex: 0)),
+                            );
                           },
-                         icon: Icon(
+                          icon: Icon(
                             Icons.arrow_forward_ios,
                             color: Colors.white,
                             size: 20,
@@ -176,22 +177,18 @@ class _HomeScreenState extends State<HomeScreen> {
                       ],
                     ),
                   ),
-                  Obx(
-                    () => Column(
-                      //songs
-                      children: songDataController1.songList.value
-                          .map((e) => SongTile(
-                                onPress: () {
-                                  songPlayerController.playLocalAudio(e);
-                                  songDataController1
-                                      .findCurrentSongPlayingIndex(e.id);
-                                  Get.to(PlaySongScreen());
-                                },
-                                songName: e.title,
-                              ))
-                          .toList(),
-                    ),
-                  )
+                  AllSongs() 
+                  // ListView.builder(
+                  //   shrinkWrap: true, // Prevent excessive empty space
+                  //   physics: NeverScrollableScrollPhysics(),
+                  //   itemCount: songs.length,
+                  //   itemBuilder: (context, index) {
+                  //     final song = songs[index];
+                  //     return SongTile(
+                  //       songName: song.title,
+                  //     );
+                  //   },
+                  // )
                 ],
               ),
             ),
