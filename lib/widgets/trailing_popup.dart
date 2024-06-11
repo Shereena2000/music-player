@@ -1,0 +1,56 @@
+import 'package:flutter/material.dart';
+import 'package:mikki_music/db/model/data_model.dart';
+import 'package:mikki_music/widgets/all_color.dart';
+import 'package:mikki_music/widgets/playlist_bottom_sheet.dart';
+import 'package:popover/popover.dart';
+
+class PopUp extends StatelessWidget {
+  final Music song;
+  const PopUp({super.key, required this.song});
+
+  @override
+  Widget build(BuildContext context) {
+    TextStyle smallTextStyle = TextStyle(
+        fontWeight: FontWeight.w500, fontSize: 15, color: itembgcolor);
+    return GestureDetector(
+      onTap: () {
+        showPopover(
+          context: context,
+          bodyBuilder: (context) => Column(
+            children: [
+              GestureDetector(
+                onTap: () {
+                  Navigator.pop(context);
+                  playlistBottomSheet(context, song);
+                },
+                child: Container(
+                  height: 40,
+                  child: Center(
+                    child: Text("Add to playlist", style: smallTextStyle),
+                  ),
+                ),
+              ),
+              Container(
+                height: 40,
+                child: Center(
+                  child: Text(
+                    "Add to Favorite",
+                    style: smallTextStyle,
+                  ),
+                ),
+              )
+            ],
+          ),
+          onPop: () {},
+          direction: PopoverDirection.left,
+          width: 180,
+          height: 80,
+        );
+      },
+      child: const Icon(
+        Icons.more_vert,
+        color: Colors.white,
+      ),
+    );
+  }
+}

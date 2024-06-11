@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:mikki_music/db/model/data_model.dart';
+import 'package:mikki_music/db/model/playlist_model.dart';
 
 import 'package:mikki_music/screens/splash_screen.dart';
 
-void main() async{
-   WidgetsFlutterBinding.ensureInitialized();
-  await Hive.initFlutter(); 
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Hive.initFlutter();
 
   Hive.registerAdapter<Music>(MusicAdapter());
+  Hive.registerAdapter<Playlist>(PlaylistAdapter());
 
   //open box
   await Hive.openBox<Music>('musicbox');
   await Hive.openBox<int>('recentlyBox');
+  await Hive.openBox<Playlist>('playlistBox');
   runApp(const MyApp());
 }
 

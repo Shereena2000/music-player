@@ -51,7 +51,7 @@ class _PlayOrShuffleSwitchState extends State<PlayOrShuffleSwitch> {
                             fontSize: 17),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 10,
                     ),
                     Icon(Icons.play_circle,
@@ -71,7 +71,7 @@ class _PlayOrShuffleSwitchState extends State<PlayOrShuffleSwitch> {
                             fontSize: 17),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 10,
                     ),
                     Icon(Icons.shuffle,

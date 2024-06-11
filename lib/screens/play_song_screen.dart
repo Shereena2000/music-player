@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:mikki_music/db/functions/recent_song_func.dart';
 import 'package:mikki_music/db/model/data_model.dart';
-import 'package:mikki_music/songs/song_controller_button.dart';
+import 'package:mikki_music/song_component/song_controller_button.dart';
 import 'package:mikki_music/widgets/back_button.dart';
 
 class PlaySongScreen extends StatefulWidget {
   final Music musicObj;
   final int index;
   const PlaySongScreen({
-    super.key, required this.musicObj, required this.index,
+    super.key,
+    required this.musicObj,
+    required this.index,
   });
 
   @override
@@ -17,27 +19,24 @@ class PlaySongScreen extends StatefulWidget {
 
 class _PlaySongScreenState extends State<PlaySongScreen> {
   late Music musicObjChange;
-@override
+  @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    musicObjChange =widget.musicObj;
+    musicObjChange = widget.musicObj;
 
     //add to recent playlist
     RecentlyFunctions.addToRecentlyPlayed(musicObjChange);
   }
 
-
-
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
         backgroundColor: Colors.transparent,
         elevation: 0,
-        title: backButton(),
+        title:const backButton(),
       ),
       extendBodyBehindAppBar: true,
       body: Stack(
@@ -57,23 +56,32 @@ class _PlaySongScreenState extends State<PlaySongScreen> {
                     height: 15,
                   ),
                   const Spacer(),
-                  Text('songArtist : unknown',style: TextStyle(color: Colors.white,fontSize: 14,  fontStyle: FontStyle.italic)),
-                 
+                  Text(widget.musicObj.album.toString()??'Unknown',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 14,
+                          fontStyle: FontStyle.italic)),
                   SizedBox(
                     height: 12,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                       Flexible(child: Text(widget.musicObj.title,style: TextStyle(color: Colors.white,fontSize: 14,  fontStyle: FontStyle.italic))),
-                     
+                      Flexible(
+                          child: Text(widget.musicObj.title,
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 14,
+                                  fontStyle: FontStyle.italic))),
                       Icon(
                         Icons.favorite_border,
                         color: Colors.white,
                       ),
                     ],
                   ),
-                 SongControllerButton(songFilePath: widget.musicObj.path,)
+                  SongControllerButton(
+                    songFilePath: widget.musicObj.path,
+                  )
                 ],
               ),
             ),

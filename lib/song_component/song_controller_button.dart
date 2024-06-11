@@ -4,7 +4,12 @@ import 'package:mikki_music/widgets/all_color.dart';
 
 class SongControllerButton extends StatefulWidget {
   final String songFilePath;
-  const SongControllerButton({super.key, required this.songFilePath});
+  // final int currentIndex;
+  const SongControllerButton({
+    super.key,
+    required this.songFilePath,
+    //required this.currentIndex
+  });
 
   @override
   State<SongControllerButton> createState() => _SongControllerButtonState();
@@ -12,25 +17,22 @@ class SongControllerButton extends StatefulWidget {
 
 class _SongControllerButtonState extends State<SongControllerButton> {
   final player = AudioPlayer();
- 
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     loadSong();
-
-   
   }
 
 //play music
   void loadSong() async {
     await player.setFilePath(widget.songFilePath);
     player.play();
-     setState(() {});
+    setState(() {});
   }
 
- @override
+  @override
   void dispose() {
     player.dispose(); // Release resources when the widget is removed
     super.dispose();
@@ -99,29 +101,27 @@ class _SongControllerButtonState extends State<SongControllerButton> {
                 size: 35,
               ),
             ),
-         
-          InkWell(
-            onTap: () {
-              if (player.playing) {
-                player.pause();
-              } else {
-                player.play();
-              }
-              setState(() {});
-            },
-                child:     Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(20.0),
-                      ),
-                      child: Icon( player.playing ?
-                        Icons.pause :  Icons.play_arrow,
-                        color: itembgcolor,
-                        size: 35,
-                      ),
-                    ),
-                   ),
-              
+            InkWell(
+              onTap: () {
+                if (player.playing) {
+                  player.pause();
+                } else {
+                  player.play();
+                }
+                setState(() {});
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(20.0),
+                ),
+                child: Icon(
+                  player.playing ? Icons.pause : Icons.play_arrow,
+                  color: itembgcolor,
+                  size: 35,
+                ),
+              ),
+            ),
             InkWell(
               onTap: () {
                 // * songDataController.playNextSong();

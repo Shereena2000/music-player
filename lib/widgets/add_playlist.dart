@@ -1,16 +1,20 @@
 import "package:flutter/material.dart";
+import "package:mikki_music/db/functions/playlist_func.dart";
 import "package:mikki_music/widgets/all_color.dart";
 
 class AddPlaylist extends StatelessWidget {
+  final Function(String) onPlaylistCreated;
   const AddPlaylist({
     super.key,
+    required this.onPlaylistCreated,
   });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        _showCreatePlaylistDialog(context);
+        PlaylistName createfolder = PlaylistName();
+        createfolder.showCreatePlaylistDialog(context);
       },
       child: Container(
         height: 70,
@@ -25,34 +29,64 @@ class AddPlaylist extends StatelessWidget {
       ),
     );
   }
+}
 
-  Future _showCreatePlaylistDialog(BuildContext context) async {
-      String? playlistName = await  showDialog<String>(
-        context: context,
-        builder: (BuildContext context) {
-           String newName = 'playlist';
-          return AlertDialog(
-            title: Text('Create New Playlist',style: TextStyle(color: itembgcolor),),
-            content: TextField(onChanged: (value){
-          newName = value;
-            },
-              decoration: InputDecoration(hintText: 'Enter Playlist Name'),),
-            actions: <Widget>[
-              TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: Text('Cancel'),
-                  ),
-                 ElevatedButton(
+class PlaylistName {
+  final _key = GlobalKey<FormState>();
+  String folderName = "";
+  TextEditingController folderNameController = TextEditingController();
+
+  void saveFolderName() {
+    final isvalid = _key.currentState?.validate();
+
+    if (isvalid != null && isvalid) {
+      _key.currentState?.save();
+      PlaylistFunc.createPlaylistFolder(folderName);
+    }
+  }
+
+  Future<dynamic> showCreatePlaylistDialog(BuildContext context) async {
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text(
+            'Create New Playlist',
+            style: TextStyle(color: itembgcolor),
+          ),
+          content: Form(
+              key: _key,
+              child: TextFormField(
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Enter Playlist Name';
+                  }
+                  return null;
+                },
+                controller: folderNameController,
+                decoration: InputDecoration(labelText: 'Enter Playlist Name'),
+                onSaved: (value) {
+                  folderName = value.toString();
+                },
+              )),
+          actions: <Widget>[
+            TextButton(
               onPressed: () {
-                Navigator.of(context).pop( newName.isEmpty ? 'playlist' : newName);
+                Navigator.of(context).pop();
+              },
+              child: Text('Cancel'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                saveFolderName();
+                Navigator.pop(context);
+                folderNameController.clear();
               },
               child: Text('Create'),
             ),
-            ],
-          );
-        });
-  } 
+          ],
+        );
+      },
+    );
+  }
 }
-   

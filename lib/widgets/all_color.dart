@@ -6,7 +6,7 @@ Color itembgcolor = const Color.fromARGB(255, 69, 39, 160);
 class BackgroundColor extends StatelessWidget {
   final Widget child;
 
- BackgroundColor({required this.child});
+ const BackgroundColor({required this.child});
 
   @override
   Widget build(BuildContext context) {

@@ -2,11 +2,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:mikki_music/db/functions/add_song_to_hive.dart';
 import 'package:mikki_music/db/functions/change_song_model.dart';
-import 'package:mikki_music/db/model/data_model.dart';
 import 'package:mikki_music/screens/home_screen.dart';
 import 'package:on_audio_query/on_audio_query.dart';
-
-
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key});
@@ -16,35 +13,32 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  bool _hasPermission = false;    
-  final OnAudioQuery _audioQuery = OnAudioQuery(); 
- //SongDataController songDataController=Get.put(SongDataController());
+  bool _hasPermission = false;
+  final OnAudioQuery _audioQuery = OnAudioQuery();
+
   @override
   void initState() {
-   
     // TODO: implement initState
     super.initState();
     checkAndRequestPermissions();
     gotoHome();
   }
-  Future<void>checkAndRequestPermissions({bool retry = false}) async{
-    _hasPermission =await await _audioQuery.checkAndRequest(
-      retryRequest: retry
-    ); 
+
+  Future<void> checkAndRequestPermissions({bool retry = false}) async {
+    _hasPermission =
+        await await _audioQuery.checkAndRequest(retryRequest: retry);
     if (_hasPermission) {
-      List<SongModel>songModel = await _audioQuery.querySongs();
+      List<SongModel> songModel = await _audioQuery.querySongs();
       await AddSongsToHive.addSongToHive(changeSongModel(songModel));
-    
     }
-    _hasPermission ? setState(() {}):null;
+    _hasPermission ? setState(() {}) : null;
   }
+
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
         border:
-            Border.all(width: 0, color:
-              const Color.fromARGB(0, 122, 10, 10)
-             ),
+            Border.all(width: 0, color: const Color.fromARGB(0, 122, 10, 10)),
         gradient: const LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
@@ -81,7 +75,6 @@ class _SplashScreenState extends State<SplashScreen> {
                 const SizedBox(
                   height: 20,
                 ),
-               
                 Expanded(
                   child: Align(
                     alignment: Alignment.bottomCenter,
@@ -90,7 +83,7 @@ class _SplashScreenState extends State<SplashScreen> {
                       child: Image.asset(
                         'assets/images/welcome1.jpg',
                         fit: BoxFit.cover,
-                        height: 400 ,
+                        height: 400,
                       ),
                     ),
                   ),
@@ -102,15 +95,13 @@ class _SplashScreenState extends State<SplashScreen> {
       ),
     );
   }
+
   Future<void> gotoHome() async {
-    //fetch songs
-    // * songDataController.getLocalSongs(); 
- 
-  await Future.delayed(Duration(seconds: 3));
+    await Future.delayed(Duration(seconds: 3));
 
-  Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => HomeScreen()),
-  );
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => HomeScreen()),
+    );
+  }
 }
-}
-
-

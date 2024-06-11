@@ -1,8 +1,7 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:mikki_music/db/model/data_model.dart';
-import 'package:mikki_music/songs/song_tile.dart';
+import 'package:mikki_music/song_component/song_tile.dart';
 
 class AllSongs extends StatelessWidget {
 
@@ -13,8 +12,11 @@ class AllSongs extends StatelessWidget {
       late Box<Music> _songsBox;
     _songsBox = Hive.box<Music>('musicbox');
     final songs = _songsBox.values.toList() as List<Music>;
+    if (songs.isEmpty) {
+      return Center(child: Text("No songs in Device"),);
+    }else{
     return  ListView.builder(
-                    shrinkWrap: true, // Prevent excessive empty space
+                    shrinkWrap: true, 
                     physics: NeverScrollableScrollPhysics(),
                     itemCount: songs.length,
                     itemBuilder: (context, index) {
@@ -24,5 +26,6 @@ class AllSongs extends StatelessWidget {
                       );
                     },
                   );
+    }
   }
 }

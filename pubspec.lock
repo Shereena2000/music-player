@@ -248,14 +248,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.2.0"
-  get:
-    dependency: "direct main"
-    description:
-      name: get
-      sha256: e4e7335ede17452b391ed3b2ede016545706c01a02292a6c97619705e7d2a85e
-      url: "https://pub.dev"
-    source: hosted
-    version: "4.6.6"
   glob:
     dependency: transitive
     description:
@@ -616,6 +608,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.5.1"
+  popover:
+    dependency: "direct main"
+    description:
+      name: popover
+      sha256: "5cba40e04115cbbf15c35e00767b91e8bf3f769763a34beb2f8a1b9e8b5fc876"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.3.0+1"
   pub_semver:
     dependency: transitive
     description:

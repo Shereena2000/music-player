@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mikki_music/screens/tab_screen/playlist_screen.dart';
-import 'package:mikki_music/songs/all_songs.dart';
+import 'package:mikki_music/song_component/all_songs.dart';
 import 'package:mikki_music/widgets/all_color.dart';
 import 'package:mikki_music/widgets/nav_bar.dart';
 import 'package:mikki_music/widgets/play_shuffle_switch.dart';
@@ -25,7 +25,7 @@ class SongScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Centered "My Music" title
+                  
                   const Center(
                     child: Text(
                       "My Music",
@@ -39,7 +39,7 @@ class SongScreen extends StatelessWidget {
                   const SizedBox(
                       height: 10),
                   Expanded(
-                    // Make tabs and content fill available space
+                  
                     child: Column(
                       children: [
                         // TabBar for Songs and Playlist
@@ -105,32 +105,7 @@ class SongsTab extends StatelessWidget {
           ],
         )),
       )
-        // * Obx(
-        //   () => Expanded(
-        //     child: SingleChildScrollView(
-        //       child: Column(
-        //           children: songDataController.songList
-        //               .map((e) => SongTile(
-        //                     onPress: () async {
-        //                       songPlayerController.playLocalAudio(e);
-        //                       songDataController
-        //                           .findCurrentSongPlayingIndex(e.id);
-        //                       Get.to(PlaySongScreen());
-        //                       AudioModel audioModel = AudioModel(
-        //                         title: e.title,
-        //                         artist: e.artist ?? 'unknwn',
-        //                         songid: e.id,
-        //                         uri: e.uri!,
-        //                       );
-
-        //                     // *  await addToRecntlyplayed([audioModel]);
-        //                     },
-        //                     songName: e.title,
-        //                   ))
-        //               .toList()),
-        //     ),
-        //   ),
-        // )
+       
       ],
     );
   }
