@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mikki_music/db/functions/fvrt_function.dart';
 import 'package:mikki_music/db/model/data_model.dart';
 import 'package:mikki_music/widgets/all_color.dart';
 import 'package:mikki_music/widgets/playlist_bottom_sheet.dart';
@@ -30,15 +31,38 @@ class PopUp extends StatelessWidget {
                   ),
                 ),
               ),
-              Container(
-                height: 40,
-                child: Center(
-                  child: Text(
-                    "Add to Favorite",
-                    style: smallTextStyle,
+              if (FavoriteFunctions.isFavour(song) == false)
+                GestureDetector(
+                  onTap: () {
+                    FavoriteFunctions.addToFavorite(song: song);
+                    Navigator.pop(context);
+                  },
+                  child: Container(
+                    height: 40,
+                    child: Center(
+                      child: Text(
+                        "Add to Favorite",
+                        style: smallTextStyle,
+                      ),
+                    ),
                   ),
                 ),
-              )
+              if (FavoriteFunctions.isFavour(song) == true)
+                GestureDetector(
+                  onTap: () {
+                    FavoriteFunctions.deleteFromFav(song.id);
+                    Navigator.pop(context);
+                  },
+                  child: Container(
+                    height: 40,
+                    child: Center(
+                      child: Text(
+                        "Remove from Favorite",
+                        style: smallTextStyle,
+                      ),
+                    ),
+                  ),
+                )
             ],
           ),
           onPop: () {},

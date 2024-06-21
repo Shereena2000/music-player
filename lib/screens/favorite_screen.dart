@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:mikki_music/db/functions/fvrt_function.dart';
+import 'package:mikki_music/db/model/data_model.dart';
+import 'package:mikki_music/song_component/song_tile.dart';
 import 'package:mikki_music/widgets/all_color.dart';
 import 'package:mikki_music/widgets/back_button.dart';
 import 'package:mikki_music/widgets/play_shuffle_switch.dart';
@@ -9,16 +12,16 @@ class FavoriteScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BackgroundColor(
-      child: const SafeArea(
+      child: SafeArea(
         child: Scaffold(
           backgroundColor: Colors.transparent,
           body: Padding(
-            padding: EdgeInsets.all(10.0),
+            padding: const EdgeInsets.all(10.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                backButton(),
-                Center(
+                const backButton(),
+                const Center(
                   child: Text(
                     "Favourite Songs",
                     style: TextStyle(
@@ -27,10 +30,10 @@ class FavoriteScreen extends StatelessWidget {
                         fontWeight: FontWeight.bold),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
-                Text(
+                const Text(
                   maxLines: 1,
                   "My Soundtrack",
                   style: TextStyle(
@@ -39,10 +42,34 @@ class FavoriteScreen extends StatelessWidget {
                     fontWeight: FontWeight.w500,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
-                PlayOrShuffleSwitch()
+                PlayOrShuffleSwitch(),
+                SizedBox(
+                  height: 10,
+                ),
+                ValueListenableBuilder(
+                    valueListenable: favoriteNotifier,
+                    builder: (context, List<Music> favSongs, child) {
+                      if (favSongs.isEmpty) {
+                        return const Center(
+                          child: Text(
+                            'Favourite songs Empty',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        );
+                      }
+                      return ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: favSongs.length,
+                          itemBuilder: (context, index) {
+                            return SongTile(
+                                songName: favSongs[index].title,
+                                musicObj: favSongs[index],
+                                index: index);
+                          });
+                    })
               ],
             ),
           ),

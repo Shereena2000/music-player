@@ -8,10 +8,25 @@ ValueNotifier<List<Playlist>> playlistNotifier = ValueNotifier([]);
 class PlaylistFunc extends ChangeNotifier {
   static final playlistBox = Hive.box<Playlist>('playlistBox');
 
-  static Future<void> createPlaylistFolder(String name) async {
+  static Future<void> createPlaylistFolder(String name, BuildContext context) async {
+    if (playlistBox.values.any((playlist) => playlist.name == name)) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('Playlist name already exists!'),
+        behavior: SnackBarBehavior.floating,
+        margin: EdgeInsets.all(10),
+        backgroundColor: Colors.red,
+      ));
+      return;
+    }
     final playlist = Playlist(name: name, songs: []);
     await playlistBox.add(playlist);
     playlistNotifier.value.add(playlist);
+    playlistNotifier.notifyListeners();
+  }
+
+  static Future<void> getPlaylist() async {
+    playlistNotifier.value.clear();
+    playlistNotifier.value.addAll(playlistBox.values);
     playlistNotifier.notifyListeners();
   }
 
@@ -34,11 +49,11 @@ class PlaylistFunc extends ChangeNotifier {
     final playlist = playlistBox.getAt(index);
     if (playlist!.songs.contains(song)) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text('Already Added!'),
           behavior: SnackBarBehavior.floating,
           margin: EdgeInsets.all(10),
-          backgroundColor: Colors.white,
+          backgroundColor: Colors.red,
         ),
       );
       return;

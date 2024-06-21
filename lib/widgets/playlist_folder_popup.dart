@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mikki_music/db/functions/playlist_func.dart';
+import 'package:mikki_music/widgets/all_color.dart';
 import 'package:popover/popover.dart';
 
 class PlaylistFolderPopUp extends StatelessWidget {
@@ -32,7 +33,7 @@ class PlaylistFolderPopUp extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         PlaylistFunc.deletePlaylist(index);
-        //   showRemoveSnackbar(context);
+      
         Navigator.pop(context);
       },
       child: Container(
@@ -50,8 +51,12 @@ class PlaylistFolderPopUp extends StatelessWidget {
   GestureDetector editFolder(BuildContext context) {
     return GestureDetector(
       onTap: () {
+        
         PlaylistEditName editName = PlaylistEditName();
+        Navigator.pop(context);
         editName.folderNameAlertDialog(context, index, folderName);
+       
+       
       },
       child: Container(
         height: 50,
@@ -65,16 +70,7 @@ class PlaylistFolderPopUp extends StatelessWidget {
     );
   }
 
-  // void showRemoveSnackbar(context) {
-  //   ScaffoldMessenger.of(context).showSnackBar(
-  //     const SnackBar(
-  //       content: Text('Removed Successfully'),
-  //       behavior: SnackBarBehavior.floating,
-  //       margin: EdgeInsets.all(10),
-  //       backgroundColor: Colors.green,
-  //     ),
-  //   );
-  // }
+ 
 }
 
 class PlaylistEditName {
@@ -97,7 +93,7 @@ class PlaylistEditName {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: Text('Give your playlist a name'),
+          title: Text('Give your playlist a name',style: TextStyle(color: itembgcolor),),
           content: Form(
             key: _key,
             child: TextFormField(

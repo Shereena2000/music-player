@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:mikki_music/screens/favorite_screen.dart';
 import 'package:mikki_music/screens/recently_played_screen.dart';
+import 'package:mikki_music/screens/settings_screen.dart';
+import 'package:mikki_music/screens/tab_screen/playlist_screen.dart';
 import 'package:mikki_music/screens/tab_screen/song_screen.dart';
 import 'package:mikki_music/song_component/all_songs.dart';
+import 'package:mikki_music/widgets/add_playlist.dart';
 import 'package:mikki_music/widgets/all_color.dart';
 import 'package:mikki_music/widgets/nav_bar.dart';
 
@@ -36,7 +39,24 @@ class _HomeScreenState extends State<HomeScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SizedBox(
-                    height: 30,
+                    height: 5,
+                  ),
+                  Align(
+                      alignment: Alignment.topRight,
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => SettingScreen()));
+                        },
+                        child: Icon(
+                          Icons.settings,
+                          color: itemcolor,
+                        ),
+                      )),
+                  const SizedBox(
+                    height: 20,
                   ),
                   //-----------favourite-------------//
                   GestureDetector(
@@ -134,7 +154,11 @@ class _HomeScreenState extends State<HomeScreen> {
                       ],
                     ),
                   ),
-
+                  AddPlaylist(
+                    onPlaylistCreated: (playlistName) {
+                      PlaylistManager.playlistNames.add(playlistName);
+                    },
+                  ),
                   //-----------all songs-------//
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),

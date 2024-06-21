@@ -25,7 +25,6 @@ class SongScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  
                   const Center(
                     child: Text(
                       "My Music",
@@ -36,10 +35,8 @@ class SongScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  const SizedBox(
-                      height: 10),
+                  const SizedBox(height: 10),
                   Expanded(
-                  
                     child: Column(
                       children: [
                         // TabBar for Songs and Playlist
@@ -51,7 +48,7 @@ class SongScreen extends StatelessWidget {
                                 (tab) => Tab(
                                   icon: Text(
                                     tab,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       color: Colors.white,
                                       fontSize: 20,
                                       fontWeight: FontWeight.w500,
@@ -62,7 +59,7 @@ class SongScreen extends StatelessWidget {
                               .toList(),
                         ),
                         // TabBarView to switch content (play list)
-                        Expanded(
+                        const Expanded(
                           child: TabBarView(
                             children: [
                               SongsTab(), // Songs tab with PlayOrShuffleSwitch
@@ -88,8 +85,7 @@ class SongsTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-  
-    return Column(
+    return const Column(
       children: [
         SizedBox(
           height: 15,
@@ -98,14 +94,12 @@ class SongsTab extends StatelessWidget {
         SizedBox(
           height: 10,
         ),
-      Expanded(
-        child: SingleChildScrollView(child: Column(
-          children: [
-            AllSongs(),
-          ],
-        )),
-      )
-       
+        Expanded(
+          child: SingleChildScrollView(
+              child: Column(
+            children: [AllSongs()],
+          )),
+        )
       ],
     );
   }

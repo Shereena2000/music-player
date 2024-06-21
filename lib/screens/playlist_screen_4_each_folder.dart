@@ -4,8 +4,7 @@ import 'package:mikki_music/db/model/playlist_model.dart';
 import 'package:mikki_music/screens/play_song_screen.dart';
 import 'package:mikki_music/widgets/all_color.dart';
 import 'package:mikki_music/widgets/back_button.dart';
-import 'package:mikki_music/widgets/text.dart';
-
+import 'package:mikki_music/widgets/constant.dart';
 
 class PlaylistFolderScreen extends StatefulWidget {
   final Playlist playlistObj;
@@ -52,7 +51,10 @@ class _PlaylistFolderScreenState extends State<PlaylistFolderScreen> {
                 ),
                 widget.playlistObj.songs.isEmpty
                     ? Center(
-                        child: Text("No song in this Playlist!",style:thinnertext,),
+                        child: Text(
+                          "No song in this Playlist!",
+                          style: thinnertext,
+                        ),
                       )
                     : ListView.builder(
                         shrinkWrap: true,
@@ -103,12 +105,17 @@ class _PlaylistFolderScreenState extends State<PlaylistFolderScreen> {
                                 //     playlistIndex: widget.playlistIndex,
                                 //     songIndex: index,
                                 //     musicObj: widget.playlistObj.songs[index]),
-                                trailing: IconButton(onPressed: (){
-                                  setState(() {
-                                     PlaylistFunc.deleteSongFromPlaylist(widget.playlistIndex, index);
-                                  });
-                                 
-                                }, icon: Icon(Icons.delete,color: Colors.white,)),
+                                trailing: IconButton(
+                                    onPressed: () {
+                                      setState(() {
+                                        PlaylistFunc.deleteSongFromPlaylist(
+                                            widget.playlistIndex, index);
+                                      });
+                                    },
+                                    icon: Icon(
+                                      Icons.delete,
+                                      color: Colors.white,
+                                    )),
                               ),
                             ),
                           );

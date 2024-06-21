@@ -36,12 +36,18 @@ class PlaylistName {
   String folderName = "";
   TextEditingController folderNameController = TextEditingController();
 
-  void saveFolderName() {
+  void saveFolderName(BuildContext context) {
     final isvalid = _key.currentState?.validate();
 
     if (isvalid != null && isvalid) {
       _key.currentState?.save();
-      PlaylistFunc.createPlaylistFolder(folderName);
+      if (playlistNotifier.value.any((playlist) => playlist.name==folderName)) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Playlist name already exists!'),
+            behavior: SnackBarBehavior.floating,
+            margin: EdgeInsets.all(10),
+            backgroundColor: Colors.red,),);return;
+      }
+      PlaylistFunc.createPlaylistFolder(folderName,context);
     }
   }
 
@@ -78,7 +84,7 @@ class PlaylistName {
             ),
             ElevatedButton(
               onPressed: () {
-                saveFolderName();
+                saveFolderName(context);
                 Navigator.pop(context);
                 folderNameController.clear();
               },

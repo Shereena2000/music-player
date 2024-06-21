@@ -5,7 +5,7 @@ import 'package:mikki_music/db/model/playlist_model.dart';
 import 'package:mikki_music/screens/playlist_screen_4_each_folder.dart';
 import 'package:mikki_music/widgets/add_playlist.dart';
 import 'package:mikki_music/widgets/playlist_folder_popup.dart';
-import 'package:mikki_music/widgets/text.dart';
+import 'package:mikki_music/widgets/constant.dart';
 
 class PlaylistTab extends StatefulWidget {
   const PlaylistTab({super.key});
@@ -14,24 +14,15 @@ class PlaylistTab extends StatefulWidget {
   State<PlaylistTab> createState() => _PlaylistTabState();
 }
 
-
 class _PlaylistTabState extends State<PlaylistTab> {
- 
-  static List<String> playlistNames = [];
-late Box  playistBox;
+  // static List<String> playlistNames = [];
+  late Box playistBox;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    playistBox =Hive.box<Playlist>('playlistBox');
-   // _getPlaylistFromHive();
+    playistBox = Hive.box<Playlist>('playlistBox');
   }
-
-// void _getPlaylistFromHive()async{
-//   final playlistBox = Hive.box<Playlist>('playlistBox'); 
-//     playlistNames = playlistBox.values.toList().map((playlist) => playlist.name).toList();
-//     setState(() {});
-// }
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +39,7 @@ late Box  playistBox;
                   AddPlaylist(
                     onPlaylistCreated: (playlistName) {
                       setState(() {
-                        playlistNames.add(playlistName);
+                        PlaylistManager.playlistNames.add(playlistName);
                       });
                     },
                   ),
@@ -145,4 +136,8 @@ class PlaylistFolder extends StatelessWidget {
           )),
     );
   }
+}
+
+class PlaylistManager {
+  static List<String> playlistNames = [];
 }

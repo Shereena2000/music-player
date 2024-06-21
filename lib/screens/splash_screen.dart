@@ -1,9 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:mikki_music/db/functions/add_song_to_hive.dart';
-import 'package:mikki_music/db/functions/change_song_model.dart';
 import 'package:mikki_music/screens/home_screen.dart';
-import 'package:on_audio_query/on_audio_query.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key});
@@ -13,25 +10,11 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  bool _hasPermission = false;
-  final OnAudioQuery _audioQuery = OnAudioQuery();
-
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    checkAndRequestPermissions();
-    gotoHome();
-  }
 
-  Future<void> checkAndRequestPermissions({bool retry = false}) async {
-    _hasPermission =
-        await await _audioQuery.checkAndRequest(retryRequest: retry);
-    if (_hasPermission) {
-      List<SongModel> songModel = await _audioQuery.querySongs();
-      await AddSongsToHive.addSongToHive(changeSongModel(songModel));
-    }
-    _hasPermission ? setState(() {}) : null;
+    gotoHome();
   }
 
   Widget build(BuildContext context) {

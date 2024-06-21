@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mikki_music/db/functions/playlist_func.dart';
 import 'package:mikki_music/db/model/data_model.dart';
 import 'package:mikki_music/widgets/all_color.dart';
-import 'package:mikki_music/widgets/text.dart';
+import 'package:mikki_music/widgets/constant.dart';
 
 Future playlistBottomSheet(BuildContext context, Music song) {
   return showModalBottomSheet(
@@ -18,7 +18,11 @@ Future playlistBottomSheet(BuildContext context, Music song) {
           if (playlist.isEmpty) {
             return Padding(
               padding: const EdgeInsets.only(top: 130),
-              child: Center(child: Text('Playlist is Empty',style: commontext,)),
+              child: Center(
+                  child: Text(
+                'Playlist is Empty',
+                style: commontext,
+              )),
             );
           }
           return ListView.builder(
@@ -27,7 +31,7 @@ Future playlistBottomSheet(BuildContext context, Music song) {
               return ListTile(
                 onTap: () {
                   PlaylistFunc.addSongToPlaylist(index, song, context);
-                  Navigator.pop(context); 
+                  Navigator.pop(context);
                 },
                 title: Text(
                   playlist[index].name,

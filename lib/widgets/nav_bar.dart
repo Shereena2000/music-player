@@ -37,7 +37,9 @@ class CustomNavBar extends StatelessWidget {
             break;
           case 1:
             Navigator.push(
-                context, MaterialPageRoute(builder: (Context) => SongScreen(initialTabIndex: 0)));
+                context,
+                MaterialPageRoute(
+                    builder: (Context) => SongScreen(initialTabIndex: 0)));
             break;
           case 2:
             Navigator.push(context,
