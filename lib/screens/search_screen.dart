@@ -5,6 +5,7 @@ import 'package:mikki_music/db/model/data_model.dart';
 import 'package:mikki_music/song_component/song_tile.dart';
 import 'package:mikki_music/widgets/all_color.dart';
 import 'package:mikki_music/widgets/back_button.dart';
+import 'package:mikki_music/widgets/constant.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
@@ -94,12 +95,12 @@ class _SearchScreenState extends State<SearchScreen> {
         }
         if (searchController.text.isNotEmpty && searchMusic.isEmpty) {
           return Center(
-            child: Text('No music'),
+            child: Text('No search results!!!',style: normalText,),
           );
         }
         return ListView.builder(
           shrinkWrap: true,
-          physics: NeverScrollableScrollPhysics(),
+          
           itemCount: searchController.text.isNotEmpty
               ? searchMusic.length
               : songs.length,
@@ -111,6 +112,7 @@ class _SearchScreenState extends State<SearchScreen> {
               songName: song.title,
               musicObj: song,
               index: index,
+              artistName: song.artist.toString(),
             );
           },
         );

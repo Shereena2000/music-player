@@ -35,6 +35,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   final OnAudioQuery _audioQuery = OnAudioQuery();
   bool _hasPermission = false;
+  
   @override
   void initState() {
     // TODO: implement initState

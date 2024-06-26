@@ -21,13 +21,14 @@ class MusicAdapter extends TypeAdapter<Music> {
       path: fields[3] as String,
       title: fields[1] as String,
       album: fields[2] as String?,
+      artist: fields[4] as String?,
     );
   }
 
   @override
   void write(BinaryWriter writer, Music obj) {
     writer
-      ..writeByte(4)
+      ..writeByte(5)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -35,7 +36,9 @@ class MusicAdapter extends TypeAdapter<Music> {
       ..writeByte(2)
       ..write(obj.album)
       ..writeByte(3)
-      ..write(obj.path);
+      ..write(obj.path)
+      ..writeByte(4)
+      ..write(obj.artist);
   }
 
   @override

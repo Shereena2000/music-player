@@ -36,8 +36,8 @@ class _PlaylistFolderScreenState extends State<PlaylistFolderScreen> {
                     ),
                     Center(
                       child: Text(
-                        widget.playlistObj.name, // Access name from playlistObj
-                        style: TextStyle(
+                        widget.playlistObj.name, 
+                        style:const TextStyle(
                           color: Colors.white,
                           fontSize: 25,
                           fontWeight: FontWeight.bold,
@@ -48,78 +48,81 @@ class _PlaylistFolderScreenState extends State<PlaylistFolderScreen> {
                 ),
                 const SizedBox(
                   height: 20,
-                ),
-                widget.playlistObj.songs.isEmpty
-                    ? Center(
-                        child: Text(
-                          "No song in this Playlist!",
-                          style: thinnertext,
-                        ),
-                      )
-                    : ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: widget.playlistObj.songs.length,
-                        itemBuilder: (context, index) {
-                          // return SongTile(
-                          //     songName: widget.playlistObj.songs[index].title,
-                          //     musicObj: widget.playlistObj.songs[index],
-                          //     index: index);
-                          return Padding(
-                            padding: const EdgeInsets.only(bottom: 20.0),
-                            child: InkWell(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => PlaySongScreen(
-                                      musicObj: widget.playlistObj.songs[index],
-                                      index: index,
+                ),    
+                Expanded(
+                  child: widget.playlistObj.songs.isEmpty
+                      ?const Center(
+                          child: Text(
+                            "No song in this Playlist!",
+                            style: normalText,
+                          ),
+                        )
+                      : ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: widget.playlistObj.songs.length,
+                          itemBuilder: (context, index) {
+                           
+                            return Padding(
+                              padding: const EdgeInsets.only(bottom: 20.0),
+                              child: InkWell(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => PlaySongScreen(
+                                        musicObj: widget.playlistObj.songs[index],
+                                        index: index,
+                                      ),
                                     ),
-                                  ),
-                                );
-                              },
-                              //*onPress,
-                              child: ListTile(
-                                leading: Container(
-                                  clipBehavior: Clip.antiAlias,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10.0),
-                                    image: const DecorationImage(
-                                      image:
-                                          AssetImage('assets/images/music.jpg'),
-                                      fit: BoxFit.cover,
+                                  );
+                                },
+                               
+                                child: ListTile(
+                                  leading: Container(
+                                    clipBehavior: Clip.antiAlias,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10.0),
+                                      image: const DecorationImage(
+                                        image:
+                                            AssetImage('assets/images/music.jpg'),
+                                        fit: BoxFit.cover,
+                                      ),
                                     ),
+                                    width: 50.0,
+                                    height: 50.0,
                                   ),
-                                  width: 50.0,
-                                  height: 50.0,
-                                ),
-                                title: Text(
-                                  widget.playlistObj.songs[index].title,
-                                  maxLines: 1,
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 20,
-                                  ),
-                                ),
-                                // trailing: PlaylistPopUp(
-                                //     playlistIndex: widget.playlistIndex,
-                                //     songIndex: index,
-                                //     musicObj: widget.playlistObj.songs[index]),
-                                trailing: IconButton(
-                                    onPressed: () {
-                                      setState(() {
-                                        PlaylistFunc.deleteSongFromPlaylist(
-                                            widget.playlistIndex, index);
-                                      });
-                                    },
-                                    icon: Icon(
-                                      Icons.delete,
+                                  title: Text(
+                                    widget.playlistObj.songs[index].title,
+                                    maxLines: 1,
+                                    style:const TextStyle(
                                       color: Colors.white,
-                                    )),
+                                      fontSize: 20,
+                                    ),
+                                  ),
+                                     subtitle: Text(
+                                    widget.playlistObj.songs[index].artist.toString()??"unknown",
+                                    maxLines: 1,
+                                    style:const TextStyle(
+                                      color: Colors.white,
+                                     
+                                    ),
+                                  ),
+                                  trailing: IconButton(
+                                      onPressed: () {
+                                        setState(() {
+                                          PlaylistFunc.deleteSongFromPlaylist(
+                                              widget.playlistIndex, index);
+                                        });
+                                      },
+                                      icon:const Icon(
+                                        Icons.delete,
+                                        color: Colors.white,
+                                      )),
+                                ),
                               ),
-                            ),
-                          );
-                        })
+                            );
+                          }),
+                )
               ],
             ),
           ),

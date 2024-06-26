@@ -3,6 +3,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:mikki_music/db/functions/add_song_to_hive.dart';
 import 'package:mikki_music/db/model/data_model.dart';
 import 'package:mikki_music/song_component/song_tile.dart';
+import 'package:mikki_music/widgets/constant.dart';
 
 class AllSongs extends StatefulWidget {
   const AllSongs({super.key});
@@ -31,7 +32,7 @@ class _AllSongsState extends State<AllSongs> {
         builder: (context, List<Music> songs, child) {
           if (songs.isEmpty) {
             return const Center(
-              child: Text('Music is Empty'),
+              child: Text('Music is Empty!!!',style: normalText,),          
             );
           }
           return ListView.builder(
@@ -41,7 +42,7 @@ class _AllSongsState extends State<AllSongs> {
               itemBuilder: (context, index) {
                 final Music song = songs[index];
                 return SongTile(
-                    songName: song.title, musicObj: song, index: index);
+                    songName: song.title, musicObj: song, index: index,artistName: song.artist.toString(),);
               });
         });
   }

@@ -10,7 +10,7 @@ class AddPlaylist extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) {  
     return GestureDetector(
       onTap: () {
         PlaylistName createfolder = PlaylistName();
@@ -42,7 +42,7 @@ class PlaylistName {
     if (isvalid != null && isvalid) {
       _key.currentState?.save();
       if (playlistNotifier.value.any((playlist) => playlist.name==folderName)) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Playlist name already exists!'),
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Playlist name already exists!'),
             behavior: SnackBarBehavior.floating,
             margin: EdgeInsets.all(10),
             backgroundColor: Colors.red,),);return;

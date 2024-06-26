@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:mikki_music/db/functions/add_song_to_hive.dart';
@@ -6,6 +7,7 @@ import 'package:mikki_music/db/functions/recent_song_func.dart';
 import 'package:mikki_music/db/model/data_model.dart';
 import 'package:mikki_music/widgets/all_color.dart';
 import 'package:mikki_music/widgets/back_button.dart';
+import 'package:mikki_music/widgets/playlist_bottom_sheet.dart';
 
 class PlaySongScreen extends StatefulWidget {
   final Music musicObj;
@@ -26,6 +28,7 @@ class _PlaySongScreenState extends State<PlaySongScreen> {
   int currentSongIndex = 0;
   Duration? duration;
   late bool isFavorite;
+  bool isshuffle = false;
 
   @override
   void initState() {
@@ -41,14 +44,63 @@ class _PlaySongScreenState extends State<PlaySongScreen> {
     } else {
       isFavorite = false;
     }
+
+    player.processingStateStream.listen((state) {
+      if (state == ProcessingState.completed) {
+        playNextSong();
+      }
+    });
+
+    // player.playbackEventStream.listen((event) {
+    //   if (event.processingState == ProcessingState.completed) {
+    //     playNextSong();
+    //   }
+    // });
   }
 
-//play music
+  void playNextSong() async {
+    if (!isshuffle) {
+      if (currentSongIndex < songsNotifier.value.length - 1) {
+        currentSongIndex++;
+      } else {
+        currentSongIndex = 0;
+      }
+    } else {
+      final random = Random();
+      currentSongIndex = random.nextInt(songsNotifier.value.length);
+    }
+
+    musicObjChange = songsNotifier.value[currentSongIndex];
+    loadSong(musicObjChange.path);
+    RecentlyFunctions.addToRecentlyPlayed(musicObjChange);
+    setState(() {
+      isFavorite = FavoriteFunctions.isFavour(musicObjChange);
+    });
+  }
+
+  void playPreviousSong() {
+    if (isshuffle) {
+      final random = Random();
+      currentSongIndex = random.nextInt(songsNotifier.value.length);
+    } else {
+      if (currentSongIndex > 0) {
+        
+        currentSongIndex--;
+      } else {
+        currentSongIndex = songsNotifier.value.length - 1;
+      }
+    }
+    musicObjChange = songsNotifier.value[currentSongIndex];
+    loadSong(musicObjChange.path);
+  }
+
   void loadSong(String path) async {
     await player.setFilePath(path);
     duration = await player.setFilePath(path);
     player.play();
-    setState(() {});
+    setState(() {
+      isFavorite = FavoriteFunctions.isFavour(musicObjChange);
+    });
   }
 
   void isFavoriteChanged(bool? value) {
@@ -68,7 +120,7 @@ class _PlaySongScreenState extends State<PlaySongScreen> {
 
   @override
   void dispose() {
-    player.dispose(); // Release resources when the widget is removed
+    player.dispose();
     super.dispose();
   }
 
@@ -99,11 +151,16 @@ class _PlaySongScreenState extends State<PlaySongScreen> {
                     height: 15,
                   ),
                   const Spacer(),
-                  const Text('songArtist:unKnown',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 14,
-                          fontStyle: FontStyle.italic)),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(musicObjChange.artist.toString() ?? "Unkown",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 14,
+                              fontStyle: FontStyle.italic)),
+                    ],
+                  ),
                   const SizedBox(
                     height: 12,
                   ),
@@ -118,11 +175,11 @@ class _PlaySongScreenState extends State<PlaySongScreen> {
                                   fontStyle: FontStyle.italic))),
                       IconButton(
                         icon: isFavorite
-                            ? Icon(
+                            ? const Icon(
                                 Icons.favorite,
                                 color: Colors.red,
                               )
-                            : Icon(
+                            : const Icon(
                                 Icons.favorite_border,
                                 color: Colors.white,
                               ),
@@ -201,16 +258,21 @@ class _PlaySongScreenState extends State<PlaySongScreen> {
             SizedBox(
               width: 10,
             ),
+            IconButton(
+              icon: Icon(
+                Icons.playlist_add_rounded,
+                color: itemcolor,
+                size: 28,
+              ),
+              onPressed: () {
+                playlistBottomSheet(context, musicObjChange);
+              },
+            ),
+
             //--------skip previous----------//
             InkWell(
               onTap: () {
-                if (currentSongIndex > 0) {
-                  currentSongIndex = currentSongIndex - 1;
-                } else {
-                  currentSongIndex = songsNotifier.value.length - 1;
-                }
-                musicObjChange = songsNotifier.value[currentSongIndex];
-                loadSong(musicObjChange.path);
+                playPreviousSong();
               },
               child: const Icon(
                 Icons.fast_rewind,
@@ -241,13 +303,7 @@ class _PlaySongScreenState extends State<PlaySongScreen> {
             ),
             InkWell(
               onTap: () {
-                if (currentSongIndex < songsNotifier.value.length - 1) {
-                  currentSongIndex = currentSongIndex + 1;
-                } else {
-                  currentSongIndex = 0;
-                }
-                musicObjChange = songsNotifier.value[currentSongIndex];
-                loadSong(musicObjChange.path);
+                playNextSong();
               },
               child: const Icon(
                 Icons.fast_forward,
@@ -255,9 +311,25 @@ class _PlaySongScreenState extends State<PlaySongScreen> {
                 size: 35,
               ),
             ),
+
+            IconButton(
+              icon: Icon(
+                Icons.shuffle,
+                color: isshuffle ? itembgcolor : itemcolor,
+                size: 25,
+              ),
+              onPressed: () {
+                setState(() {
+                  isshuffle = !isshuffle;
+                  if (!isshuffle) {
+                    currentSongIndex = widget.index;
+                  }
+                });
+              },
+            ),
             const SizedBox(
               height: 80,
-            )
+            ),
           ],
         )
       ],

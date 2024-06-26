@@ -49,27 +49,31 @@ class FavoriteScreen extends StatelessWidget {
                 SizedBox(
                   height: 10,
                 ),
-                ValueListenableBuilder(
-                    valueListenable: favoriteNotifier,
-                    builder: (context, List<Music> favSongs, child) {
-                      if (favSongs.isEmpty) {
-                        return const Center(
-                          child: Text(
-                            'Favourite songs Empty',
-                            style: TextStyle(color: Colors.white),
-                          ),
-                        );
-                      }
-                      return ListView.builder(
-                          shrinkWrap: true,
-                          itemCount: favSongs.length,
-                          itemBuilder: (context, index) {
-                            return SongTile(
-                                songName: favSongs[index].title,
-                                musicObj: favSongs[index],
-                                index: index);
-                          });
-                    })
+                Expanded(
+                  child: ValueListenableBuilder(
+                      valueListenable: favoriteNotifier,
+                      builder: (context, List<Music> favSongs, child) {
+                        if (favSongs.isEmpty) {
+                          return const Center(
+                            child: Text(
+                              'Favourite songs Empty!',
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 18),
+                            ),
+                          );
+                        }
+                        return ListView.builder(
+                            shrinkWrap: true,
+                            itemCount: favSongs.length,
+                            itemBuilder: (context, index) {
+                              return SongTile(
+                                  artistName: favSongs[index].artist.toString(),
+                                  songName: favSongs[index].title,
+                                  musicObj: favSongs[index],
+                                  index: index);
+                            });
+                      }),
+                )
               ],
             ),
           ),

@@ -10,7 +10,7 @@ class PlaylistFunc extends ChangeNotifier {
 
   static Future<void> createPlaylistFolder(String name, BuildContext context) async {
     if (playlistBox.values.any((playlist) => playlist.name == name)) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         content: Text('Playlist name already exists!'),
         behavior: SnackBarBehavior.floating,
         margin: EdgeInsets.all(10),

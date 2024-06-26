@@ -1,38 +1,38 @@
 import 'package:flutter/material.dart';
 
-TextStyle commontext = const TextStyle(
+const TextStyle commontext = TextStyle(
   color: Colors.white,
   fontSize: 20,
   fontWeight: FontWeight.w500,
 );
 
-TextStyle normalText = const TextStyle(
+const TextStyle normalText = TextStyle(
   color: Colors.white,
   fontSize: 17,
 );
 
-TextStyle thinnertext = const TextStyle(
+const TextStyle thinnertext = TextStyle(
   color: Colors.white,
   fontSize: 15,
   fontWeight: FontWeight.w200,
 );
 
-TextStyle largeText = const TextStyle(
+const TextStyle largeText = TextStyle(
     color: Colors.white, 
     fontWeight: FontWeight.w600,
     fontSize: 25);
 
-TextStyle headding = const TextStyle(
+const TextStyle headding =TextStyle(
   color: Colors.white,
   fontSize: 30,
   fontWeight: FontWeight.bold,
 );
 
-Icon forwardIcon = const Icon(
+const Icon forwardIcon =  Icon(
   Icons.arrow_forward_ios,
   color: Colors.white,
   size: 20,
 );
-SizedBox sizeH10 = const SizedBox(
+const SizedBox sizeH10 =  SizedBox(
   height: 10,
 );

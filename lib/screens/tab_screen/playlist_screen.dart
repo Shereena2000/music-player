@@ -31,6 +31,7 @@ class _PlaylistTabState extends State<PlaylistTab> {
         padding: EdgeInsets.all(10.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
+              
           children: [
             Padding(
               padding: const EdgeInsets.only(left: 8, bottom: 15),
@@ -63,7 +64,7 @@ class _PlaylistTabState extends State<PlaylistTab> {
                   if (playlist.isEmpty) {
                     return const Center(
                       child: Text(
-                        'playlist',
+                        '',
                         style: TextStyle(
                             color: Color.fromARGB(255, 185, 182, 182),
                             fontSize: 20),

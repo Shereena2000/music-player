@@ -13,37 +13,31 @@ class RecentlyPlayedScreen extends StatefulWidget {
 }
 
 class _RecentlyPlayedScreenState extends State<RecentlyPlayedScreen> {
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    RecentlyFunctions.readRecentSongs();
-  }
-
+ 
   @override
   Widget build(BuildContext context) {
     return BackgroundColor(
       child: SafeArea(
         child: Scaffold(
           backgroundColor: Colors.transparent,
-          body: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const backButton(),
-                const Center(
-                  child: Text(
-                    "Recently Played",
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 30,
-                        fontWeight: FontWeight.bold),
-                  ),
+          body: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const backButton(),
+              const Center(
+                child: Text(
+                  "Recently Played",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold),
                 ),
-                const SizedBox(
-                  height: 10,
-                ),
-                ValueListenableBuilder(
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Expanded(
+                child: ValueListenableBuilder(
                   valueListenable: recentlyNotifier,
                   builder: (BuildContext context, List<Music> recentlySongs,
                       Widget? child) {
@@ -64,8 +58,6 @@ class _RecentlyPlayedScreenState extends State<RecentlyPlayedScreen> {
                     return ListView.builder(
                         reverse: true,
                         shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                        
                         itemCount: recentlySongs.length,
                         itemBuilder: (context, index) {
                           final song = recentlySongs[index];
@@ -73,12 +65,13 @@ class _RecentlyPlayedScreenState extends State<RecentlyPlayedScreen> {
                             songName: song.title,
                             musicObj: song,
                             index: index,
+                            artistName: song.artist.toString(),
                           );
                         });
                   },
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

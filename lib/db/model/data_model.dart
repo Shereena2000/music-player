@@ -16,6 +16,9 @@ class Music extends HiveObject {
   @HiveField(3)
   late String path;
 
-  Music({required this.id, required this.path, required this.title, this.album,});
+@HiveField(4)
+  late String? artist;
+
+  Music({required this.id, required this.path, required this.title, this.album, this.artist});         
 
 }

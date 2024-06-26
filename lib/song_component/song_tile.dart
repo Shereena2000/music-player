@@ -7,12 +7,12 @@ class SongTile extends StatelessWidget {
   final String songName;
   final Music musicObj;
   final int index;
-
+ final String artistName;
   const SongTile({
     super.key,
     required this.songName,
     required this.musicObj,
-    required this.index,
+    required this.index, required this.artistName,
   });
 
   @override
@@ -51,6 +51,14 @@ class SongTile extends StatelessWidget {
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 20,
+              ),
+            ),
+             subtitle: Text(
+              artistName ?? "Unkown",
+              maxLines: 1,
+              style: TextStyle(
+                color: Colors.white,
+               
               ),
             ),
             trailing: PopUp(
