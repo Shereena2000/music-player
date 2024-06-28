@@ -7,6 +7,7 @@ import 'package:mikki_music/screens/tab_screen/song_screen.dart';
 import 'package:mikki_music/song_component/all_songs.dart';
 import 'package:mikki_music/widgets/add_playlist.dart';
 import 'package:mikki_music/widgets/all_color.dart';
+import 'package:mikki_music/widgets/constant.dart';
 import 'package:mikki_music/widgets/nav_bar.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -48,7 +49,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => SettingScreen()));
+                                  builder: (context) => const SettingScreen()));
                         },
                         child: Icon(
                           Icons.settings,
@@ -63,7 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     onTap: () => Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (Context) => FavoriteScreen())),
+                            builder: (context) => const FavoriteScreen())),
                     child: Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(15),
@@ -81,13 +82,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               color: itemcolor,
                               size: 30,
                             ),
-                            const Text(
-                              'Favorite Songs',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 25),
-                            ),
+                            const Text('Favorite Songs', style: largeText),
                           ],
                         ),
                       ),
@@ -95,62 +90,41 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   //---------recently played----------//
                   Padding(
-                    padding: EdgeInsets.only(top: 20, left: 8, right: 8),
+                    padding: const EdgeInsets.only(top: 20, left: 8, right: 8),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          'Recently Played',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w600,
-                              fontSize: 21),
-                        ),
+                        const Text('Recently Played', style: normalHeading),
                         IconButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => RecentlyPlayedScreen()),
-                            );
-                          },
-                          icon: Icon(
-                            Icons.arrow_forward_ios,
-                            color: Colors.white,
-                            size: 20,
-                          ),
-                        ),
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const RecentlyPlayedScreen()),
+                              );
+                            },
+                            icon: forwardIcon),
                       ],
                     ),
                   ),
                   //-------------my playlist------------//
                   Padding(
-                    padding: EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(8.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          'My Playlist',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w600,
-                              fontSize: 21),
-                        ),
+                        const Text('My Playlist', style: normalHeading),
                         IconButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      SongScreen(initialTabIndex: 1)),
-                            );
-                          },
-                          icon: Icon(
-                            Icons.arrow_forward_ios,
-                            color: Colors.white,
-                            size: 20,
-                          ),
-                        ),
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const SongScreen(initialTabIndex: 1)),
+                              );
+                            },
+                            icon: forwardIcon),
                       ],
                     ),
                   ),
@@ -161,36 +135,26 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   //-----------all songs-------//
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          'Songs',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w600,
-                              fontSize: 21),
-                        ),
+                        const Text('Songs', style: normalHeading),
                         IconButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      SongScreen(initialTabIndex: 0)),
-                            );
-                          },
-                          icon: Icon(
-                            Icons.arrow_forward_ios,
-                            color: Colors.white,
-                            size: 20,
-                          ),
-                        )
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const SongScreen(initialTabIndex: 0)),
+                              );
+                            },
+                            icon: forwardIcon)
                       ],
                     ),
                   ),
-                  AllSongs()
+                  const AllSongs()
                 ],
               ),
             ),

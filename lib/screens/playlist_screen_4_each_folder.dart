@@ -30,7 +30,7 @@ class _PlaylistFolderScreenState extends State<PlaylistFolderScreen> {
               children: [
                 Row(
                   children: [
-                    const backButton(),
+                    const PreviousButton(),
                     const SizedBox(
                       width: 70,
                     ),
@@ -62,63 +62,57 @@ class _PlaylistFolderScreenState extends State<PlaylistFolderScreen> {
                           itemCount: widget.playlistObj.songs.length,
                           itemBuilder: (context, index) {
                            
-                            return Padding(
-                              padding: const EdgeInsets.only(bottom: 20.0),
-                              child: InkWell(
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => PlaySongScreen(
-                                        musicObj: widget.playlistObj.songs[index],
-                                        index: index,
-                                      ),
-                                    ),
-                                  );
-                                },
-                               
-                                child: ListTile(
-                                  leading: Container(
-                                    clipBehavior: Clip.antiAlias,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10.0),
-                                      image: const DecorationImage(
-                                        image:
-                                            AssetImage('assets/images/music.jpg'),
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ),
-                                    width: 50.0,
-                                    height: 50.0,
-                                  ),
-                                  title: Text(
-                                    widget.playlistObj.songs[index].title,
-                                    maxLines: 1,
-                                    style:const TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 20,
+                            return InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => PlaySongScreen(
+                                      musicObj: widget.playlistObj.songs[index],
+                                      index: index,
                                     ),
                                   ),
-                                     subtitle: Text(
-                                    widget.playlistObj.songs[index].artist.toString()??"unknown",
-                                    maxLines: 1,
-                                    style:const TextStyle(
-                                      color: Colors.white,
-                                     
+                                );
+                              },
+                             
+                              child: ListTile(
+                                leading: Container(
+                                  clipBehavior: Clip.antiAlias,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    image: const DecorationImage(
+                                      image:
+                                          AssetImage('assets/images/music.jpg'),
+                                      fit: BoxFit.cover,
                                     ),
                                   ),
-                                  trailing: IconButton(
-                                      onPressed: () {
-                                        setState(() {
-                                          PlaylistFunc.deleteSongFromPlaylist(
-                                              widget.playlistIndex, index);
-                                        });
-                                      },
-                                      icon:const Icon(
-                                        Icons.delete,
-                                        color: Colors.white,
-                                      )),
+                                  width: 50.0,
+                                  height: 50.0,
                                 ),
+                                title: Text(
+                                  widget.playlistObj.songs[index].title,
+                                  maxLines: 1,
+                                  style:tileText
+                                ),
+                                   subtitle: Text(
+                                  widget.playlistObj.songs[index].artist.toString()??"unknown",
+                                  maxLines: 1,
+                                  style:const TextStyle(
+                                    color: Colors.white,
+                                   
+                                  ),
+                                ),
+                                trailing: IconButton(
+                                    onPressed: () {
+                                      setState(() {
+                                        PlaylistFunc.deleteSongFromPlaylist(
+                                            widget.playlistIndex, index);
+                                      });
+                                    },
+                                    icon:const Icon(
+                                      Icons.delete,
+                                      color: Colors.white,
+                                    )),
                               ),
                             );
                           }),

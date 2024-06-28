@@ -7,6 +7,7 @@ import 'package:mikki_music/db/functions/recent_song_func.dart';
 import 'package:mikki_music/db/model/data_model.dart';
 import 'package:mikki_music/widgets/all_color.dart';
 import 'package:mikki_music/widgets/back_button.dart';
+import 'package:mikki_music/widgets/constant.dart';
 import 'package:mikki_music/widgets/playlist_bottom_sheet.dart';
 
 class PlaySongScreen extends StatefulWidget {
@@ -51,11 +52,7 @@ class _PlaySongScreenState extends State<PlaySongScreen> {
       }
     });
 
-    // player.playbackEventStream.listen((event) {
-    //   if (event.processingState == ProcessingState.completed) {
-    //     playNextSong();
-    //   }
-    // });
+    
   }
 
   void playNextSong() async {
@@ -131,7 +128,7 @@ class _PlaySongScreenState extends State<PlaySongScreen> {
         automaticallyImplyLeading: false,
         backgroundColor: Colors.transparent,
         elevation: 0,
-        title: const backButton(),
+        title: const PreviousButton(),
       ),
       extendBodyBehindAppBar: true,
       body: Stack(
@@ -141,55 +138,53 @@ class _PlaySongScreenState extends State<PlaySongScreen> {
             'assets/images/background_img1.jpg',
             fit: BoxFit.cover,
           ),
-          Container(
-            child: Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  const Spacer(),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(musicObjChange.artist.toString() ?? "Unkown",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 14,
-                              fontStyle: FontStyle.italic)),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 12,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Flexible(
-                          child: Text(musicObjChange.title,
-                              style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 14,
-                                  fontStyle: FontStyle.italic))),
-                      IconButton(
-                        icon: isFavorite
-                            ? const Icon(
-                                Icons.favorite,
-                                color: Colors.red,
-                              )
-                            : const Icon(
-                                Icons.favorite_border,
+          Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(  
+                  height: 15,
+                ),
+                const Spacer(),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(musicObjChange.artist.toString() ?? "Unkown",
+                        style:const  TextStyle(
+                            color: Colors.white,
+                            fontSize: 14,
+                            fontStyle: FontStyle.italic)),
+                  ],
+                ),
+                const SizedBox(
+                  height: 12,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Flexible(
+                        child: Text(musicObjChange.title,
+                            style: const TextStyle(
                                 color: Colors.white,
-                              ),
-                        onPressed: () => isFavoriteChanged(isFavorite),
-                      ),
-                    ],
-                  ),
-                  songControllerButton()
-                ],
-              ),
+                                fontSize: 14,
+                                fontStyle: FontStyle.italic))),
+                    IconButton(
+                      icon: isFavorite
+                          ? const Icon(
+                              Icons.favorite,
+                              color: Colors.red,
+                            )
+                          : const Icon(
+                              Icons.favorite_border,
+                              color: Colors.white,
+                            ),
+                      onPressed: () => isFavoriteChanged(isFavorite),
+                    ),
+                  ],
+                ),
+                songControllerButton()
+              ],
             ),
           )
         ],
@@ -227,7 +222,7 @@ class _PlaySongScreenState extends State<PlaySongScreen> {
           ],
         ),
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: 18.0),
+          padding:const  EdgeInsets.symmetric(horizontal: 18.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -255,9 +250,7 @@ class _PlaySongScreenState extends State<PlaySongScreen> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            SizedBox(
-              width: 10,
-            ),
+         sizeH10,  
             IconButton(
               icon: Icon(
                 Icons.playlist_add_rounded,

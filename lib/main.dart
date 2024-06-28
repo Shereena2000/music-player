@@ -9,6 +9,7 @@ import 'package:mikki_music/db/model/data_model.dart';
 import 'package:mikki_music/db/model/playlist_model.dart';
 import 'package:mikki_music/screens/splash_screen.dart';
 import 'package:on_audio_query/on_audio_query.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -34,8 +35,8 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   final OnAudioQuery _audioQuery = OnAudioQuery();
-  bool _hasPermission = false;
-  
+//  bool _hasPermission = false;
+
   @override
   void initState() {
     // TODO: implement initState
@@ -43,16 +44,21 @@ class _MyAppState extends State<MyApp> {
     checkAndRequestPermissions();
   }
 
-  Future<void> checkAndRequestPermissions({bool retry = false}) async {
-    _hasPermission = await _audioQuery.checkAndRequest(retryRequest: retry);
-    if (_hasPermission) {
+  Future<void> checkAndRequestPermissions() async {
+    var status = await Permission.storage.request();
+    if (status == PermissionStatus.granted) {
       List<SongModel> songModel = await _audioQuery.querySongs();
       await AddSongsToHive.addSongToHive(changeSongModel(songModel));
       await RecentlyFunctions.readRecentSongs();
       await PlaylistFunc.getPlaylist();
       await FavoriteFunctions.readFavSongs();
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Storage permission is required to access audio files'),
+        ),
+      );
     }
-    _hasPermission ? setState(() {}) : null;
   }
 
   @override

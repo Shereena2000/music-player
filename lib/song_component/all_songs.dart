@@ -32,7 +32,7 @@ class _AllSongsState extends State<AllSongs> {
         builder: (context, List<Music> songs, child) {
           if (songs.isEmpty) {
             return const Center(
-              child: Text('Music is Empty!!!',style: normalText,),          
+              child: Center(child: Text('Music is Empty!!!',style: normalText,)),          
             );
           }
           return ListView.builder(

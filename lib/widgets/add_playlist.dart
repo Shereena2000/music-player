@@ -70,7 +70,7 @@ class PlaylistName {
                   return null;
                 },
                 controller: folderNameController,
-                decoration: InputDecoration(labelText: 'Enter Playlist Name'),
+                decoration:const  InputDecoration(labelText: 'Enter Playlist Name'),
                 onSaved: (value) {
                   folderName = value.toString();
                 },
@@ -80,7 +80,7 @@ class PlaylistName {
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: Text('Cancel'),
+              child:const  Text('Cancel'),
             ),
             ElevatedButton(
               onPressed: () {
@@ -88,7 +88,7 @@ class PlaylistName {
                 Navigator.pop(context);
                 folderNameController.clear();
               },
-              child: Text('Create'),
+              child:const  Text('Create'),
             ),
           ],
         );

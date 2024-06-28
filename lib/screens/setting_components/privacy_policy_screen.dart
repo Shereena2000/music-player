@@ -8,20 +8,20 @@ class PrivacyPolicyScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BackgroundColor(
+    return const BackgroundColor(
         child: SafeArea(
             child: Scaffold(
       backgroundColor: Colors.transparent,
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.only(
+          padding: EdgeInsets.only(
             left: 15,
             right: 15,
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              backButton(),
+           PreviousButton(),  
               Center(
                 child: Text(
                   'Privacy Policy',
@@ -109,7 +109,7 @@ class PrivacyPolicyScreen extends StatelessWidget {
               ),
               sizeH10,
               Text(
-                'Thank you for using Mikki Music!',
+                'Thank you for using Mikki Music! \n',
                 style: normalText,
               ),
             ],

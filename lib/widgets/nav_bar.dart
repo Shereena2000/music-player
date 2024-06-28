@@ -33,21 +33,21 @@ class CustomNavBar extends StatelessWidget {
         switch (index) {
           case 0:
             Navigator.pushReplacement(
-                context, MaterialPageRoute(builder: (Context) => HomeScreen()));
+                context, MaterialPageRoute(builder: (context) =>const  HomeScreen()));
             break;
           case 1:
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (Context) => SongScreen(initialTabIndex: 0)));
+                    builder: (context) =>const  SongScreen(initialTabIndex: 0)));
             break;
           case 2:
             Navigator.push(context,
-                MaterialPageRoute(builder: (Context) => FavoriteScreen()));
+                MaterialPageRoute(builder: (context) =>const  FavoriteScreen()));
             break;
           case 3:
             Navigator.push(context,
-                MaterialPageRoute(builder: (Context) => SearchScreen()));
+                MaterialPageRoute(builder: (context) =>const  SearchScreen()));
             break;
         }
       },

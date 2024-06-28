@@ -37,7 +37,7 @@ class _SearchScreenState extends State<SearchScreen> {
               children: [
                 Row(
                   children: [
-                    backButton(),
+                    const PreviousButton(),
                     Expanded(
                       child: TextField(
                         onSubmitted: (value) =>
@@ -90,17 +90,22 @@ class _SearchScreenState extends State<SearchScreen> {
       builder: (context, List<Music> songs, child) {
         if (songs.isEmpty) {
           return const Center(
-            child: Text('Music is Empty'),
+            child: Text(
+              'Music is Empty!!!',
+              style: normalText,
+            ),
           );
         }
         if (searchController.text.isNotEmpty && searchMusic.isEmpty) {
-          return Center(
-            child: Text('No search results!!!',style: normalText,),
+          return const Center(
+            child: Text(
+              'No search results!!!',
+              style: normalText,
+            ),
           );
         }
         return ListView.builder(
           shrinkWrap: true,
-          
           itemCount: searchController.text.isNotEmpty
               ? searchMusic.length
               : songs.length,

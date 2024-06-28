@@ -8,16 +8,16 @@ class TandCScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BackgroundColor(
+    return const BackgroundColor(
       child: SafeArea(
         child: Scaffold(
           backgroundColor: Colors.transparent,
           body: Padding(
-            padding: const EdgeInsets.all(10.0),
+            padding:  EdgeInsets.all(10.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                backButton(),
+               PreviousButton(),
                 Center(
                   child: Text(
                     'Terms and Conditions',

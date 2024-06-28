@@ -4,6 +4,7 @@ import 'package:mikki_music/db/model/data_model.dart';
 import 'package:mikki_music/song_component/song_tile.dart';
 import 'package:mikki_music/widgets/all_color.dart';
 import 'package:mikki_music/widgets/back_button.dart';
+import 'package:mikki_music/widgets/constant.dart';
 import 'package:mikki_music/widgets/play_shuffle_switch.dart';
 
 class FavoriteScreen extends StatelessWidget {
@@ -20,14 +21,11 @@ class FavoriteScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const backButton(),
+                const PreviousButton(),
                 const Center(
                   child: Text(
                     "Favourite Songs",
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 30,
-                        fontWeight: FontWeight.bold),
+                    style: headding,
                   ),
                 ),
                 const SizedBox(
@@ -46,7 +44,7 @@ class FavoriteScreen extends StatelessWidget {
                   height: 20,
                 ),
                 PlayOrShuffleSwitch(),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 Expanded(
@@ -56,9 +54,8 @@ class FavoriteScreen extends StatelessWidget {
                         if (favSongs.isEmpty) {
                           return const Center(
                             child: Text(
-                              'Favourite songs Empty!',
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 18),
+                              'Favourite songs Empty!!!',
+                              style: normalText,
                             ),
                           );
                         }

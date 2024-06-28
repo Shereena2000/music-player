@@ -27,6 +27,16 @@ const TextStyle headding =TextStyle(
   fontSize: 30,
   fontWeight: FontWeight.bold,
 );
+const TextStyle normalHeading =TextStyle(
+  color: Colors.white,
+  fontSize: 21,
+  fontWeight: FontWeight.w600,
+);
+
+const TextStyle tileText =TextStyle(
+                color: Colors.white,
+                fontSize: 20,
+              );
 
 const Icon forwardIcon =  Icon(
   Icons.arrow_forward_ios,

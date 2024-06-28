@@ -1,9 +1,12 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:mikki_music/db/functions/recent_song_func.dart';
 import 'package:mikki_music/db/model/data_model.dart';
 import 'package:mikki_music/song_component/song_tile.dart';
 import 'package:mikki_music/widgets/all_color.dart';
 import 'package:mikki_music/widgets/back_button.dart';
+import 'package:mikki_music/widgets/constant.dart';
 
 class RecentlyPlayedScreen extends StatefulWidget {
   const RecentlyPlayedScreen({super.key});
@@ -13,7 +16,6 @@ class RecentlyPlayedScreen extends StatefulWidget {
 }
 
 class _RecentlyPlayedScreenState extends State<RecentlyPlayedScreen> {
- 
   @override
   Widget build(BuildContext context) {
     return BackgroundColor(
@@ -23,14 +25,11 @@ class _RecentlyPlayedScreenState extends State<RecentlyPlayedScreen> {
           body: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const backButton(),
+              const PreviousButton(),
               const Center(
                 child: Text(
                   "Recently Played",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold),
+                  style: headding,
                 ),
               ),
               const SizedBox(
@@ -42,17 +41,9 @@ class _RecentlyPlayedScreenState extends State<RecentlyPlayedScreen> {
                   builder: (BuildContext context, List<Music> recentlySongs,
                       Widget? child) {
                     if (recentlySongs.isEmpty) {
-                      return const Padding(
-                        padding: EdgeInsets.only(top: 80, bottom: 150),
-                        child: Center(
-                          child: Text(
-                            "No Recently played songs!",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w700,
-                                fontSize: 20),
-                          ),
-                        ),
+                      return const Center(
+                        child: Text("No Recently played songs!!!",
+                            style: normalText),
                       );
                     }
                     return ListView.builder(

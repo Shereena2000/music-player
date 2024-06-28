@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mikki_music/db/model/data_model.dart';
 import 'package:mikki_music/screens/play_song_screen.dart';
+import 'package:mikki_music/widgets/constant.dart';
 import 'package:mikki_music/widgets/trailing_popup.dart';
 
 class SongTile extends StatelessWidget {
@@ -18,8 +19,8 @@ class SongTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 20.0),
-      child: InkWell(
+      padding: const EdgeInsets.only(bottom: 1.2),
+      child: InkWell(  
         onTap: () {
           Navigator.push(
             context,
@@ -48,15 +49,12 @@ class SongTile extends StatelessWidget {
             title: Text(
               songName,
               maxLines: 1,
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 20,
-              ),
+              style: tileText
             ),
              subtitle: Text(
               artistName ?? "Unkown",
               maxLines: 1,
-              style: TextStyle(
+              style:const  TextStyle(
                 color: Colors.white,
                
               ),

@@ -18,26 +18,23 @@ class SettingScreen extends StatelessWidget {
           body: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const backButton(),
+              const PreviousButton(),
               const Center(
                 child: Text(
                   'Settings',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold),
+                  style: headding,
                 ),
               ),
               ListTile(
                 onTap: () {
                   diougeabout(context);
                 },
-                leading: Icon(
+                leading: const Icon(
                   Icons.info,
                   color: Colors.white,
                   size: 30,
                 ),
-                title: Text(
+                title: const Text(
                   "About us",
                   style: commontext,
                 ),
@@ -45,15 +42,17 @@ class SettingScreen extends StatelessWidget {
               ),
               ListTile(
                 onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => TandCScreen()));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const TandCScreen()));
                 },
-                leading: Icon(
+                leading: const Icon(
                   Icons.description,
                   color: Colors.white,
                   size: 30,
                 ),
-                title: Text(
+                title: const Text(
                   "Terms & Conditions",
                   style: commontext,
                 ),
@@ -64,18 +63,32 @@ class SettingScreen extends StatelessWidget {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => PrivacyPolicyScreen()));
+                          builder: (context) => const PrivacyPolicyScreen()));
                 },
-                leading: Icon(
+                leading: const Icon(
                   Icons.shield,
                   color: Colors.white,
                   size: 30,
                 ),
-                title: Text(
+                title: const Text(
                   "Privacy Policy",
                   style: commontext,
                 ),
                 trailing: forwardIcon,
+              ),
+              Spacer(),
+              Padding(
+                padding: const EdgeInsets.all(10.0), 
+                child: Center(
+                  child: Text(
+                    'version 1.0.0',
+                    style: TextStyle(
+                      color: itembgcolor, 
+                      fontSize:15,
+                       fontWeight: FontWeight.w500
+                    ),
+                  ),
+                ),
               )
             ],
           ),

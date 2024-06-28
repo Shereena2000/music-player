@@ -13,30 +13,39 @@ class RecentlyFunctions extends ChangeNotifier{
   //add to hive and recentnotifier
   static Future<void> addToRecentlyPlayed(Music song) async{
     //remove duplicate
-    recentlyBox.delete(recentlyBox.values.toList().indexOf(song.id));
-    recentlyNotifier.value.remove(song);
+   // remove duplicate
+    if (recentlyBox.values.contains(song.id)) {
+      recentlyBox.delete(recentlyBox.values.toList().indexOf(song.id));
+      recentlyNotifier.value.remove(song);
+    }
+
 
     //add 
     await recentlyBox.add(song.id);
     recentlyNotifier.value.add(song);
 
-    // length of recently played maintain 8
-    if (recentlyNotifier.value.length>8) {
+    // length of recently played maintain 12
+    if (recentlyNotifier.value.length>12) {       
       recentlyNotifier.value.removeAt(0);
       await recentlyBox.deleteAt(0);
     }
     recentlyNotifier.notifyListeners();
   }
-  
+     
    
 static Future<void>readRecentSongs()async{
   recentlyNotifier.value.clear();
-  for (var song in songsNotifier.value) {
-    if (isRecent(song)) {
-      recentlyNotifier.value.add(song);
+  List<int> recentSongIds = recentlyBox.values.toList();
+    for (var song in songsNotifier.value) {
+      if (recentSongIds.contains(song.id)) {
+        recentlyNotifier.value.add(song);
+      }
     }
-    
-  }
+
+    // Ensure the list doesn't exceed the limit
+    if (recentlyNotifier.value.length > 12) {
+      recentlyNotifier.value = recentlyNotifier.value.sublist(0, 12);
+    }
   recentlyNotifier.notifyListeners();
 }
 

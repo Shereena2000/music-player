@@ -1,8 +1,8 @@
 import "package:flutter/material.dart";
 import "package:mikki_music/widgets/all_color.dart";
 
-class backButton extends StatelessWidget {
-  const backButton({
+class PreviousButton extends StatelessWidget {
+  const PreviousButton({
     super.key,
   });
 
