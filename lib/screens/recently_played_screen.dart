@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:mikki_music/db/functions/recent_song_func.dart';
 import 'package:mikki_music/db/model/data_model.dart';
 import 'package:mikki_music/song_component/song_tile.dart';
@@ -35,7 +33,7 @@ class _RecentlyPlayedScreenState extends State<RecentlyPlayedScreen> {
               const SizedBox(
                 height: 10,
               ),
-              Expanded(
+              Flexible(
                 child: ValueListenableBuilder(
                   valueListenable: recentlyNotifier,
                   builder: (BuildContext context, List<Music> recentlySongs,

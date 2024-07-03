@@ -10,7 +10,7 @@ class PlayOrShuffleSwitch extends StatefulWidget {
 }
 
 class _PlayOrShuffleSwitchState extends State<PlayOrShuffleSwitch> {
-  bool isPlay = true;
+  bool isPlay = false;
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -54,7 +54,7 @@ class _PlayOrShuffleSwitchState extends State<PlayOrShuffleSwitch> {
                     const SizedBox(
                       width: 10,
                     ),
-                    Icon(Icons.play_circle,
+                    Icon(isPlay ?Icons.pause_circle:Icons.play_circle,
                         color: isPlay ? Colors.white : Colors.deepPurple),
                   ],
                 ),

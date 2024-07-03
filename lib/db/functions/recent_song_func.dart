@@ -12,7 +12,7 @@ class RecentlyFunctions extends ChangeNotifier{
 
   //add to hive and recentnotifier
   static Future<void> addToRecentlyPlayed(Music song) async{
-    //remove duplicate
+    
    // remove duplicate
     if (recentlyBox.values.contains(song.id)) {
       recentlyBox.delete(recentlyBox.values.toList().indexOf(song.id));
