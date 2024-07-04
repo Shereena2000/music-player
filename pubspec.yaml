@@ -33,12 +33,13 @@ dependencies:
   just_audio: ^0.9.36 
   hive_flutter:
   popover: ^0.3.0+1
+  
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.6
   on_audio_query: ^2.9.0
-  permission_handler: ^11.3.1
+ 
 
 
 dev_dependencies:

@@ -4,7 +4,7 @@ import 'package:mikki_music/song_component/all_songs.dart';
 import 'package:mikki_music/widgets/all_color.dart';
 import 'package:mikki_music/widgets/constant.dart';
 import 'package:mikki_music/widgets/nav_bar.dart';
-import 'package:mikki_music/widgets/play_shuffle_switch.dart';
+
 
 class SongScreen extends StatelessWidget {
   final int initialTabIndex;
@@ -80,10 +80,7 @@ class SongsTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Column(
       children: [
-        SizedBox(
-          height: 15,
-        ),
-        PlayOrShuffleSwitch(),
+       
         SizedBox(
           height: 10,
         ),

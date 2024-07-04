@@ -5,7 +5,6 @@ import 'package:mikki_music/song_component/song_tile.dart';
 import 'package:mikki_music/widgets/all_color.dart';
 import 'package:mikki_music/widgets/back_button.dart';
 import 'package:mikki_music/widgets/constant.dart';
-import 'package:mikki_music/widgets/play_shuffle_switch.dart';
 
 class FavoriteScreen extends StatelessWidget {
   const FavoriteScreen({super.key});
@@ -40,10 +39,6 @@ class FavoriteScreen extends StatelessWidget {
                     fontWeight: FontWeight.w500,
                   ),
                 ),
-                const SizedBox(
-                  height: 20,
-                ),
-                PlayOrShuffleSwitch(),
                 const SizedBox(
                   height: 10,
                 ),
