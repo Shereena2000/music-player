@@ -32,7 +32,7 @@ class PrivacyPolicyScreen extends StatelessWidget {
                 height: 15,
               ),
               Text(
-                'Your privacy is very important to us. This Privacy Policy outlines how Mikki Music gathers, uses, and safeguards your personal information.',
+                'Your privacy is very important to us. This Privacy Policy outlines how Smash Music gathers, uses, and safeguards your personal information.',
                 style: normalText,
               ),
               sizeH10,
@@ -92,7 +92,7 @@ class PrivacyPolicyScreen extends StatelessWidget {
               ),
               sizeH10,
               Text(
-                'By using the Mikki Music application, you agree to the terms outlined in this Privacy Policy.',
+                'By using the Smash Music application, you agree to the terms outlined in this Privacy Policy.',
                 style: normalText,
               ),
               sizeH10,
@@ -109,7 +109,7 @@ class PrivacyPolicyScreen extends StatelessWidget {
               ),
               sizeH10,
               Text(
-                'Thank you for using Mikki Music! \n',
+                'Thank you for using Smash Music! \n',
                 style: normalText,
               ),
             ],

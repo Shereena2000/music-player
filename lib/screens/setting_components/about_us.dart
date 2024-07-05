@@ -13,7 +13,7 @@ void diougeabout(context) {
             style: headding,
           ),
           content:const Text(
-            'Rock your favorite music, anywhere! Mikki  lets you access and organize your music library on your phone, all offline. More features coming soon . . . .',
+            'Rock your favorite music, anywhere! Smash Music lets you access and organize your music library on your phone, all offline. More features coming soon . . . .',
             style: commontext,
           ),
         );
